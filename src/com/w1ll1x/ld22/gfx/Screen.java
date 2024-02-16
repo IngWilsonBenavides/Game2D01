@@ -20,9 +20,14 @@ public class Screen {
 	private SpriteSheet sheet;
 
 	public Screen(int w, int h, SpriteSheet sheet) {
+		this.sheet = sheet;
 		this.w = w;
 		this.h = h;
 
+		colors[0] = 0xff00ff;
+		colors[1] = 0xff00ff;
+		colors[2] = 0xff00ff;
+		colors[3] = 0xff00ff;
 	}
 
 	public void render(int[] pixels, int offs, int row) {
@@ -43,11 +48,12 @@ public class Screen {
 				int tileIndex = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
 
 				for (int y = y0; y < y1; y++) {
-					int sp = ((y - yScroll) & 7) * SPRITE_SHEET_SIZE + ((x0 - xScroll) & 7);
+					int sp = ((y - yScroll) & 7) * sheet.width + ((x0 - xScroll) & 7);
 					int tp = offs + x0 + y * row;
 					for (int x = x0; x < x1; x++) {
-						int xs = (x - xScroll) & 7;
-						pixels[tp++] = colors[tileIndex * 4 + spriteSheetPixels[sp++]];
+						int col = tileIndex * 4 + sheet.pixels[sp++];
+//						pixels[tp++] = colors[col];
+						pixels[tp++] = 0xff00ff;
 					}
 				}
 			}
