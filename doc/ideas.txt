@@ -2,3 +2,7 @@ youtube: https://www.youtube.com/watch?v=s2yOF4jDgNU&t=5s
 name: notch coding minicraft part 1
 
 harvest moon
+
+limitations:
+low resolution
+4 colors per block of 8x8 pixels
