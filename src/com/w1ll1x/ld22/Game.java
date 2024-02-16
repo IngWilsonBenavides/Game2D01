@@ -1,13 +1,18 @@
 package com.w1ll1x.ld22;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
-public class Game extends Canvas implements Runnable {
+import javax.swing.JFrame;
 
+public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
+
+	public static final String NAME = "Untitled game";
 	public static final int HEIGHT = 240;
 	public static final int WIDTH = HEIGHT * 16 / 9;
 	private boolean running = false;
@@ -49,10 +54,21 @@ public class Game extends Canvas implements Runnable {
 		g.dispose();
 		bs.show();
 	}
-	
+
 	public static void main(String[] args) {
-		System.out.println("hello world");
+		Game game = new Game();
+		game.setMinimumSize(new Dimension(WIDTH * 2, HEIGHT * 2));
+		game.setMaximumSize(new Dimension(WIDTH * 2, HEIGHT * 2));
+		game.setPreferredSize(new Dimension(WIDTH * 2, HEIGHT * 2));
+
+		JFrame frame = new JFrame(Game.NAME);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		frame.add(game);
+		frame.pack();
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 	}
-	 
 
 }
