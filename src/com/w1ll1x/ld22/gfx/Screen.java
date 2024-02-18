@@ -9,11 +9,11 @@ public class Screen {
 	private static final int MAP_WIDTH = 64;
 	private static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
 
-	private int[] tiles = new int[MAP_WIDTH * MAP_WIDTH * 2];
-	private int[] colors = new int[MAP_WIDTH * MAP_WIDTH * 3];
-	private int[] databits = new int[MAP_WIDTH * MAP_WIDTH];
-	private int xScroll;
-	private int yScroll;
+	public int[] tiles = new int[MAP_WIDTH * MAP_WIDTH * 2];
+	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH * 4];
+	public int[] databits = new int[MAP_WIDTH * MAP_WIDTH];
+	public int xScroll;
+	public int yScroll;
 
 	public final int w, h;
 
@@ -25,15 +25,14 @@ public class Screen {
 		this.h = h;
 
 		colors[0] = 0xff00ff;
-		colors[1] = 0xff00ff;
-		colors[2] = 0xff00ff;
-		colors[3] = 0xff00ff;
+		colors[1] = 0x00ffff;
+		colors[2] = 0xffff00;
+		colors[3] = 0xffffff;
 	}
 
 	public void render(int[] pixels, int offs, int row) {
-		xScroll++;
 		for (int yt = yScroll >> 3; yt <= (yScroll + h) >> 3; yt++) {
-			int y0 = yt * 8 + yScroll;
+			int y0 = yt * 8 - yScroll;
 			int y1 = y0 + 8;
 			if (y0 < 0)
 				y0 = 0;
@@ -49,12 +48,12 @@ public class Screen {
 				int tileIndex = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
 
 				for (int y = y0; y < y1; y++) {
-					int sp = ((y - yScroll) & 7) * sheet.width + ((x0 - xScroll) & 7);
+					int sp = ((y + yScroll) & 7) * sheet.width + ((x0 + xScroll) & 7);
 					int tp = offs + x0 + y * row;
 					for (int x = x0; x < x1; x++) {
 						int col = tileIndex * 4 + sheet.pixels[sp++];
-						pixels[tp++] = xt * 1999 + yt * 1999;
-//						pixels[tp++] = colors[col];
+//						pixels[tp++] = xt * 1999 + yt * 1999;
+						pixels[tp++] = colors[col];
 					}
 				}
 			}

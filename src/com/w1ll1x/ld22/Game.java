@@ -11,7 +11,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
@@ -92,6 +91,8 @@ public class Game extends Canvas implements Runnable {
 
 	public void tick() {
 		tickCount++;
+		screen.xScroll++;
+		screen.yScroll++;
 	}
 
 	public void render() {
@@ -105,11 +106,11 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		g.fillRect(0, 0, getWidth(), getHeight());
-		
+
 		int ww = WIDTH * 3;
 		int hh = HEIGHT * 3;
-		int xo = (getWidth()-ww)/2;
-		int yo = (getHeight()-hh)/2;
+		int xo = (getWidth() - ww) / 2;
+		int yo = (getHeight() - hh) / 2;
 		g.drawImage(image, xo, yo, ww, hh, null);
 		g.dispose();
 		bs.show();
