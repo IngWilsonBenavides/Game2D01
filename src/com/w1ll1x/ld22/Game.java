@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
@@ -37,10 +38,11 @@ public class Game extends Canvas implements Runnable {
 	public void stop() {
 		running = false;
 	}
-	
+
 	private void init() {
 		try {
-			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
+			screen = new Screen(WIDTH, HEIGHT,
+					new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,7 +55,7 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		int ticks = 0;
 		long lastTimer1 = System.currentTimeMillis();
-		
+
 		init();
 
 		while (running) {
@@ -102,7 +104,13 @@ public class Game extends Canvas implements Runnable {
 		screen.render(pixels, 0, WIDTH);
 
 		Graphics g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		int ww = WIDTH * 3;
+		int hh = HEIGHT * 3;
+		int xo = (getWidth()-ww)/2;
+		int yo = (getHeight()-hh)/2;
+		g.drawImage(image, xo, yo, ww, hh, null);
 		g.dispose();
 		bs.show();
 	}
@@ -116,7 +124,7 @@ public class Game extends Canvas implements Runnable {
 		JFrame frame = new JFrame(Game.NAME);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
-		frame.add(game);
+		frame.add(game, BorderLayout.CENTER);
 		frame.pack();
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
