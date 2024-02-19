@@ -15,6 +15,9 @@ public class Screen {
 	public int xScroll;
 	public int yScroll;
 
+	public static final int BIT_MIRROR_X = 0x01;
+	public static final int BIT_MIRROR_Y = 0x02;
+
 	public final int w, h;
 
 	private SpriteSheet sheet;
@@ -24,10 +27,15 @@ public class Screen {
 		this.w = w;
 		this.h = h;
 
-		colors[0] = 0xff00ff;
-		colors[1] = 0x00ffff;
-		colors[2] = 0xffff00;
-		colors[3] = 0xffffff;
+		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
+			colors[i * 4 + 0] = 0xff00ff;
+			colors[i * 4 + 1] = 0x00ffff;
+			colors[i * 4 + 2] = 0xffff00;
+			colors[i * 4 + 3] = 0xffffff;
+			
+			databits[i] = 1; 
+		}
+
 	}
 
 	public void render(int[] pixels, int offs, int row) {
@@ -45,17 +53,26 @@ public class Screen {
 					x0 = 0;
 				if (x1 > w)
 					x1 = w;
-				int tileIndex = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
 
+				int tileIndex = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
+				int bits = databits[tileIndex] & 3;
+
+				int spa = 1;
+				if ((bits & BIT_MIRROR_X) > 0)
+					spa = -1;
 				for (int y = y0; y < y1; y++) {
 					int sp = ((y + yScroll) & 7) * sheet.width + ((x0 + xScroll) & 7);
 					int tp = offs + x0 + y * row;
+					if ((bits & BIT_MIRROR_X) > 0)
+						sp += 8;
+					else
+						sp -= 1;
 					for (int x = x0; x < x1; x++) {
-						int col = tileIndex * 4 + sheet.pixels[sp++];
-//						pixels[tp++] = xt * 1999 + yt * 1999;
+						int col = tileIndex * 4 + sheet.pixels[sp += spa];
 						pixels[tp++] = colors[col];
 					}
 				}
+
 			}
 		}
 	}

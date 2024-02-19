@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable {
 	private void init() {
 		try {
 			screen = new Screen(WIDTH, HEIGHT,
-					new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons.png"))));
+					new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons_empty.png"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -91,8 +91,7 @@ public class Game extends Canvas implements Runnable {
 
 	public void tick() {
 		tickCount++;
-		screen.xScroll++;
-		screen.yScroll++;
+
 	}
 
 	public void render() {
