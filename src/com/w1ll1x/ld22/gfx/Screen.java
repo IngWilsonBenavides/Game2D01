@@ -43,42 +43,38 @@ public class Screen {
 
 	public void render(int[] pixels, int offs, int row) {
 		for (int yt = yScroll >> 3; yt <= (yScroll + h) >> 3; yt++) {
-			int y0 = yt * 8 - yScroll;
-			int y1 = y0 + 8;
-			if (y0 < 0)
-				y0 = 0;
-			if (y1 > h)
-				y1 = h;
+			int yp = yt * 8 - yScroll;
+
 			for (int xt = xScroll >> 3; xt <= (xScroll + w) >> 3; xt++) {
-				int x0 = xt * 8 - xScroll;
-				int x1 = x0 + 8;
-				if (x0 < 0)
-					x0 = 0;
-				if (x1 > w)
-					x1 = w;
+				int xp = xt * 8 - xScroll;
 
 				int tileIndex = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
 				int bits = databits[tileIndex] & 3;
 
-				int spa = 1;
-				if ((bits & BIT_MIRROR_X) > 0)
-					spa = -1;
-				for (int y = y0; y < y1; y++) {
-					int sp = ((y + yScroll) & 7) * sheet.width + ((x0 + xScroll) & 7);
-					if ((bits & BIT_MIRROR_Y) > 0) {
-						sp = ((yScroll - y) & 7) * sheet.width + ((x0 + xScroll) & 7);
+				boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
+				boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
 
-					}
-					int tp = offs + x0 + y * row;
+				for (int y = 0; y < 8; y++) {
+					int ys = y;
+					if (mirrorY)
+						ys = 7 - y;
+					if (y + yp < 0)
+						continue;
+					if (y + yp >= h)
+						continue;
 
-					sp += (bits & BIT_MIRROR_X) * 9 - 1;
-
-					for (int x = x0; x < x1; x++) {
-						int col = tileIndex * 4 + sheet.pixels[sp += spa];
-						pixels[tp++] = colors[col];
+					for (int x = 0; x < 8; x++) {
+						if (x + xp < 0)
+							continue;
+						if (x + xp >= w)
+							continue;
+						int xs = x;
+						if (mirrorX)
+							xs = 7 - x;
+						int col = tileIndex * 4 + sheet.pixels[xs + ys * sheet.width];
+						pixels[(x + xp) + (y + yp) * row + offs] = colors[col];
 					}
 				}
-
 			}
 		}
 	}
