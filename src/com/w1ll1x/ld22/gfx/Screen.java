@@ -32,8 +32,11 @@ public class Screen {
 			colors[i * 4 + 1] = 0x00ffff;
 			colors[i * 4 + 2] = 0xffff00;
 			colors[i * 4 + 3] = 0xffffff;
-			
-			databits[i] = 1; 
+
+			if (i % 2 == 0)
+				databits[i] += 1;
+			if (i / MAP_WIDTH % 2 == 0)
+				databits[i] += 2;
 		}
 
 	}
