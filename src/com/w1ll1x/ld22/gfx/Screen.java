@@ -2,6 +2,7 @@ package com.w1ll1x.ld22.gfx;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Screen {
 	private List<Sprite> sprites = new ArrayList<Sprite>();
@@ -29,9 +30,11 @@ public class Screen {
 		this.h = h;
 
 		pixels = new int[w * h];
+		
+		Random random = new Random();
 
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-			colors[i] = i & 511;
+			colors[i] = random.nextInt(512);
 
 			if (i % 2 == 0)
 				databits[i] += 1;
@@ -75,7 +78,7 @@ public class Screen {
 				int xs = x;
 				if (mirrorX)
 					xs = 7 - x;
-				int col = (colors >> (sheet.pixels[xs + ys * sheet.width] * 9)) & 511;
+				int col = (colors >> (sheet.pixels[xs + ys * sheet.width] * 3)) & 511;
 				pixels[(x + xp) + (y + yp) * w] = col;
 			}
 		}
