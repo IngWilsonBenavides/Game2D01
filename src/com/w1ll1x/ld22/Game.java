@@ -8,6 +8,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -29,7 +30,7 @@ public class Game extends Canvas implements Runnable {
 	private int tickCount;
 	private Screen screen;
 
-	private int[] colors = new int[512];
+	private int[] colors = new int[256];
 
 	public void start() {
 		running = true;
@@ -42,10 +43,10 @@ public class Game extends Canvas implements Runnable {
 
 	private void init() {
 		int pp = 0;
-		for (int r = 0; r < 8; r++) {
-			for (int g = 0; g < 8; g++) {
-				for (int b = 0; b < 8; b++) {
-					colors[pp++] = (r * 255 / 7) << 16 | (g * 255 / 7) << 8 | (b * 255 / 7);
+		for (int r = 0; r < 6; r++) {
+			for (int g = 0; g < 6; g++) {
+				for (int b = 0; b < 6; b++) {
+					colors[pp++] = (r * 255 / 5) << 16 | (g * 255 / 5) << 8 | (b * 255 / 5);
 				}
 
 			}
@@ -102,6 +103,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
+		screen.xScroll++;
 		tickCount++;
 	}
 
