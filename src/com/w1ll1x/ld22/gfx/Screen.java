@@ -65,11 +65,14 @@ public class Screen {
 					spa = -1;
 				for (int y = y0; y < y1; y++) {
 					int sp = ((y + yScroll) & 7) * sheet.width + ((x0 + xScroll) & 7);
+					if ((bits & BIT_MIRROR_Y) > 0) {
+						sp = ((yScroll - y) & 7) * sheet.width + ((x0 + xScroll) & 7);
+
+					}
 					int tp = offs + x0 + y * row;
-					if ((bits & BIT_MIRROR_X) > 0)
-						sp += 8;
-					else
-						sp -= 1;
+
+					sp += (bits & BIT_MIRROR_X) * 9 - 1;
+
 					for (int x = x0; x < x1; x++) {
 						int col = tileIndex * 4 + sheet.pixels[sp += spa];
 						pixels[tp++] = colors[col];
