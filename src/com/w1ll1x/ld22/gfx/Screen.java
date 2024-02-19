@@ -9,8 +9,8 @@ public class Screen {
 	private static final int MAP_WIDTH = 64;
 	private static final int MAP_WIDTH_MASK = MAP_WIDTH - 1;
 
-	public int[] tiles = new int[MAP_WIDTH * MAP_WIDTH * 2];
-	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH * 4];
+	public int[] tiles = new int[MAP_WIDTH * MAP_WIDTH];
+	public int[] colors = new int[MAP_WIDTH * MAP_WIDTH];
 	public int[] databits = new int[MAP_WIDTH * MAP_WIDTH];
 	public int xScroll;
 	public int yScroll;
@@ -19,6 +19,7 @@ public class Screen {
 	public static final int BIT_MIRROR_Y = 0x02;
 
 	public final int w, h;
+	public int[] pixels;
 
 	private SpriteSheet sheet;
 
@@ -27,11 +28,10 @@ public class Screen {
 		this.w = w;
 		this.h = h;
 
+		pixels = new int[w * h];
+
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-			colors[i * 4 + 0] = 0xff00ff;
-			colors[i * 4 + 1] = 0x00ffff;
-			colors[i * 4 + 2] = 0xffff00;
-			colors[i * 4 + 3] = 0xffffff;
+			colors[i] = 4;
 
 			if (i % 2 == 0)
 				databits[i] += 1;
@@ -41,7 +41,7 @@ public class Screen {
 
 	}
 
-	public void render(int[] pixels, int offs, int row) {
+	public void render() {
 		for (int yt = yScroll >> 3; yt <= (yScroll + h) >> 3; yt++) {
 			int yp = yt * 8 - yScroll;
 
@@ -51,30 +51,32 @@ public class Screen {
 				int tileIndex = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
 				int bits = databits[tileIndex] & 3;
 
-				boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
-				boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
+				render(xp, yp, 0, colors[tileIndex], databits[tileIndex]);
 
-				for (int y = 0; y < 8; y++) {
-					int ys = y;
-					if (mirrorY)
-						ys = 7 - y;
-					if (y + yp < 0)
-						continue;
-					if (y + yp >= h)
-						continue;
+			}
+		}
+	}
 
-					for (int x = 0; x < 8; x++) {
-						if (x + xp < 0)
-							continue;
-						if (x + xp >= w)
-							continue;
-						int xs = x;
-						if (mirrorX)
-							xs = 7 - x;
-						int col = tileIndex * 4 + sheet.pixels[xs + ys * sheet.width];
-						pixels[(x + xp) + (y + yp) * row + offs] = colors[col];
-					}
-				}
+	private void render(int xp, int yp, int tile, int colors, int bits) {
+		boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
+		boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
+
+		for (int y = 0; y < 8; y++) {
+			int ys = y;
+			if (mirrorY)
+				ys = 7 - y;
+			if (y + yp < 0 || y + yp >= h)
+				continue;
+
+			for (int x = 0; x < 8; x++) {
+				if (x + xp < 0 || x + xp >= w)
+					continue;
+
+				int xs = x;
+				if (mirrorX)
+					xs = 7 - x;
+				int col = (colors >> (sheet.pixels[xs + ys * sheet.width] * 9)) & 511;
+				pixels[(x + xp) + (y + yp) * w] = col;
 			}
 		}
 	}
