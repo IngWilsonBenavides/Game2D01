@@ -31,7 +31,7 @@ public class Screen {
 		pixels = new int[w * h];
 
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-			colors[i] = 4;
+			colors[i] = i & 511;
 
 			if (i % 2 == 0)
 				databits[i] += 1;
