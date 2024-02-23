@@ -8,11 +8,11 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
 
@@ -114,12 +114,17 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.render();
+		screen.render(0, 0, 0 + 14 * 32, Color.get(-1, 555, 555, 555), 0);
+		screen.render(8, 0, 1 + 14 * 32, Color.get(-1, 555, 555, 555), 0);
+		screen.render(0, 8, 0 + 15 * 32, Color.get(-1, 555, 555, 555), 0);
+		screen.render(8, 8, 1 + 15 * 32, Color.get(-1, 555, 555, 555), 0);
+		
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				pixels[x + y * WIDTH] = colors[screen.pixels[x + y * screen.w]];
 			}
 		}
-
+		
 		Graphics g = bs.getDrawGraphics();
 		g.fillRect(0, 0, getWidth(), getHeight());
 

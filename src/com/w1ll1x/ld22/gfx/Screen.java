@@ -31,13 +31,8 @@ public class Screen {
 
 		pixels = new int[w * h];
 
-		Random random = new Random();
-
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-			colors[i] = (colors[i] << 8) + 5 * 6;
-			colors[i] = (colors[i] << 8) + 5 * 6;
-			colors[i] = (colors[i] << 8) + 5 * 6;
-			colors[i] = (colors[i] << 8) + 5 * 6;
+			colors[i] = Color.get(50, 50, 50, 50);
 
 			if (i % 2 == 0)
 				databits[i] += 1;
@@ -46,8 +41,10 @@ public class Screen {
 		}
 
 		new Font().draw("Testing the 0341879123", this, 0, 0);
-
+		
 	}
+
+
 
 	public void render() {
 		for (int yt = yScroll >> 3; yt <= (yScroll + h) >> 3; yt++) {
@@ -60,13 +57,14 @@ public class Screen {
 
 			}
 		}
-		for(int i=0;i<sprites.size();i++) {
+		for (int i = 0; i < sprites.size(); i++) {
 			Sprite s = sprites.get(i);
 			render(s.x, s.y, s.img, s.col, s.bits);
 		}
+		sprites.clear();
 	}
 
-	private void render(int xp, int yp, int tile, int colors, int bits) {
+	public void render(int xp, int yp, int tile, int colors, int bits) {
 		boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
 		boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
 
