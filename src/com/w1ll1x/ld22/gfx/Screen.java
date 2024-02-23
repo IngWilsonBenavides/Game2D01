@@ -44,6 +44,8 @@ public class Screen {
 			if (i / MAP_WIDTH % 2 == 0)
 				databits[i] += 2;
 		}
+		
+		new Font().draw("testing the 0123456789", this, 0, 0);
 
 	}
 
@@ -54,7 +56,7 @@ public class Screen {
 			for (int xt = xScroll >> 3; xt <= (xScroll + w) >> 3; xt++) {
 				int xp = xt * 8 - xScroll;
 				int ti = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
-				render(xp, yp, 0, colors[ti], databits[ti]);
+				render(xp, yp, tiles[ti], colors[ti], databits[ti]);
 
 			}
 		}
@@ -84,5 +86,12 @@ public class Screen {
 
 			}
 		}
+	}
+
+	public void setTile(int x, int y, int tile, int color, int bits) {
+		int tp = (x&MAP_WIDTH_MASK)+(y&MAP_WIDTH_MASK)*MAP_WIDTH;
+		tiles[tp] = tile;
+		colors[tp] = color;
+		databits[tp] = bits;
 	}
 }
