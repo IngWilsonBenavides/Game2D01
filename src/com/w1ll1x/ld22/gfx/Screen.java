@@ -34,18 +34,18 @@ public class Screen {
 		Random random = new Random();
 
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-			colors[i] = (colors[i] << 8) + random.nextInt(6 * 6 * 6);
-			colors[i] = (colors[i] << 8) + random.nextInt(6 * 6 * 6);
-			colors[i] = (colors[i] << 8) + random.nextInt(6 * 6 * 6);
-			colors[i] = (colors[i] << 8) + random.nextInt(6 * 6 * 6);
+			colors[i] = (colors[i] << 8) + 5 * 6;
+			colors[i] = (colors[i] << 8) + 5 * 6;
+			colors[i] = (colors[i] << 8) + 5 * 6;
+			colors[i] = (colors[i] << 8) + 5 * 6;
 
 			if (i % 2 == 0)
 				databits[i] += 1;
 			if (i / MAP_WIDTH % 2 == 0)
 				databits[i] += 2;
 		}
-		
-		new Font().draw("testing the 0123456789", this, 0, 0);
+
+		new Font().draw("Testing the 0341879123", this, 0, 0);
 
 	}
 
@@ -60,11 +60,19 @@ public class Screen {
 
 			}
 		}
+		for(int i=0;i<sprites.size();i++) {
+			Sprite s = sprites.get(i);
+			render(s.x, s.y, s.img, s.col, s.bits);
+		}
 	}
 
 	private void render(int xp, int yp, int tile, int colors, int bits) {
 		boolean mirrorX = (bits & BIT_MIRROR_X) > 0;
 		boolean mirrorY = (bits & BIT_MIRROR_Y) > 0;
+
+		int xTile = tile % 32;
+		int yTile = tile / 32;
+		int toffs = xTile * 8 + yTile * 8 * sheet.width;
 
 		for (int y = 0; y < 8; y++) {
 			int ys = y;
@@ -80,7 +88,7 @@ public class Screen {
 				int xs = x;
 				if (mirrorX)
 					xs = 7 - x;
-				int col = (colors >> (sheet.pixels[xs + ys * sheet.width] * 8)) & 255;
+				int col = (colors >> (sheet.pixels[xs + ys * sheet.width + toffs] * 8)) & 255;
 				if (col < 255)
 					pixels[(x + xp) + (y + yp) * w] = col;
 
@@ -89,7 +97,7 @@ public class Screen {
 	}
 
 	public void setTile(int x, int y, int tile, int color, int bits) {
-		int tp = (x&MAP_WIDTH_MASK)+(y&MAP_WIDTH_MASK)*MAP_WIDTH;
+		int tp = (x & MAP_WIDTH_MASK) + (y & MAP_WIDTH_MASK) * MAP_WIDTH;
 		tiles[tp] = tile;
 		colors[tp] = color;
 		databits[tp] = bits;

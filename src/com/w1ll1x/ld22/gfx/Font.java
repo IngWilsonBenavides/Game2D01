@@ -11,7 +11,7 @@ public class Font {
 		for (int i = 0; i < msg.length(); i++) {
 			int ix = chars.indexOf(msg.charAt(i));
 			if (ix >= 0) {
-				screen.setTile(x + i, y, ix + 29 * 32, 5, 0);
+				screen.setTile(x + i, y, ix + 30 * 32, (5 + 5 * 6 + 5 * 36) * 256 * 256*256, 0);
 			}
 		}
 	}
