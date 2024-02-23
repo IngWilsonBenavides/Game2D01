@@ -36,11 +36,9 @@ public class Screen {
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
 			colors[i] = Color.get(00, 321, 40, 50);
 			tiles[i] = random.nextInt(10)/9*32;
-
-			if (i % 2 == 0)
-				databits[i] += 1;
-			if (i / MAP_WIDTH % 2 == 0)
-				databits[i] += 2;
+			if(tiles[i] != 0) {
+				colors[i] = Color.get(00, 321, 40, 432);
+			}
 		}
 
 		new Font().draw("Testing the 0341879123", this, 0, 0);

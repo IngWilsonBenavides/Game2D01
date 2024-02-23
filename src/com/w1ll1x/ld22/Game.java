@@ -29,8 +29,12 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private int tickCount;
 	private Screen screen;
+	private InputHandler input = new InputHandler(this);
 
 	private int[] colors = new int[256];
+	
+	public Game() {
+	}
 
 	public void start() {
 		running = true;
@@ -103,6 +107,10 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
+		if (input.up) screen.yScroll--;
+		if (input.down) screen.yScroll++;
+		if (input.left) screen.xScroll--;
+		if (input.right) screen.xScroll++;
 		tickCount++;
 	}
 
@@ -110,6 +118,7 @@ public class Game extends Canvas implements Runnable {
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
+			requestFocus();
 			return;
 		}
 
