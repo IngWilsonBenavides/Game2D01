@@ -36,12 +36,16 @@ public class Screen {
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
 			colors[i] = Color.get(00, 40, 50, 40);
 			tiles[i] = 0;
-			if (random.nextInt(10) == 9) {
+			if (random.nextInt(40) == 0) {
 				tiles[i] = 32;
-				colors[i] = Color.get(00, 40, 222, 333);
-			} else if (random.nextInt(10) == 9) {
+				colors[i] = Color.get(111, 40, 222, 333);
+				databits[i] = random.nextInt(2);
+			} else if (random.nextInt(40) == 0) {
 				tiles[i] = 33;
-				colors[i] = Color.get(00, 40, 222, 333);
+				colors[i] = Color.get(20, 40, 30, 550);
+			} else {
+				tiles[i] = random.nextInt(4);
+				databits[i] = random.nextInt(4);
 			}
 		}
 
