@@ -34,10 +34,14 @@ public class Screen {
 		Random random = new Random();
 		
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
-			colors[i] = Color.get(00, 321, 40, 50);
-			tiles[i] = random.nextInt(10)/9*32;
-			if(tiles[i] != 0) {
-				colors[i] = Color.get(00, 321, 40, 432);
+			colors[i] = Color.get(00, 40, 50, 40);
+			tiles[i] = 0;
+			if (random.nextInt(10) == 9) {
+				tiles[i] = 32;
+				colors[i] = Color.get(00, 40, 222, 333);
+			} else if (random.nextInt(10) == 9) {
+				tiles[i] = 33;
+				colors[i] = Color.get(00, 40, 222, 333);
 			}
 		}
 

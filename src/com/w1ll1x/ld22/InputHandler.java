@@ -18,22 +18,23 @@ public class InputHandler implements KeyListener {
 		game.addKeyListener(this);
 	}
 
-	public void keyTyped(KeyEvent ke) {
+	
+	public void keyPressed(KeyEvent ke) {
 		toggle(ke, true);
 	}
-
-	private void toggle(KeyEvent ke, boolean pressed) {
-		if(ke.getKeyCode()==KeyEvent.VK_UP) up = pressed;
-		if(ke.getKeyCode()==KeyEvent.VK_DOWN) down = pressed;
-		if(ke.getKeyCode()==KeyEvent.VK_LEFT) left = pressed;
-		if(ke.getKeyCode()==KeyEvent.VK_RIGHT) right = pressed;
-	}
-
-	public void keyPressed(KeyEvent ke) {
+	
+	public void keyReleased(KeyEvent ke) {
 		toggle(ke, false);
 	}
 
-	public void keyReleased(KeyEvent ke) {
-		toggle(ke, true);
+	private void toggle(KeyEvent ke, boolean pressed) {
+		if (ke.getKeyCode() == KeyEvent.VK_UP) up = pressed;
+		if (ke.getKeyCode() == KeyEvent.VK_DOWN) down = pressed;
+		if (ke.getKeyCode() == KeyEvent.VK_LEFT) left = pressed;
+		if (ke.getKeyCode() == KeyEvent.VK_RIGHT) right = pressed;
+	}
+
+	public void keyTyped(KeyEvent ke) {
+
 	}
 }
