@@ -54,9 +54,9 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 					int mid = (rr * 30 + gg * 59 + bb * 11) / 100;
-					rr = (rr + mid) / 2;
-					gg = (gg + mid) / 2;
-					bb = (bb + mid) / 2;
+					rr = ((rr + mid) / 2) * 200 / 255 + 35;
+					gg = ((gg + mid) / 2) * 200 / 255 + 35;
+					bb = ((bb + mid) / 2) * 200 / 255 + 40;
 					colors[pp++] = rr << 16 | gg << 8 | bb;
 				}
 
@@ -133,10 +133,12 @@ public class Game extends Canvas implements Runnable {
 		{
 			int xo = WIDTH / 2 - 8;
 			int yo = HEIGHT / 2 - 8;
-			screen.render(xo + 0, yo + 0, 0 + 14 * 32, Color.get(-1, 555, 555, 555), 0);
-			screen.render(xo + 8, yo + 0, 1 + 14 * 32, Color.get(-1, 555, 555, 555), 0);
-			screen.render(xo + 0, yo + 8, 0 + 15 * 32, Color.get(-1, 555, 555, 555), 0);
-			screen.render(xo + 8, yo + 8, 1 + 15 * 32, Color.get(-1, 555, 555, 555), 0);
+			
+			int flip = (screen.yScroll >> 3) & 1;
+			screen.render(xo + 8 * flip, yo + 0, 0 + 14 * 32, Color.get(-1, 100, 220, 532), flip);
+			screen.render(xo + 8 - 8 * flip, yo + 0, 1 + 14 * 32, Color.get(-1, 100, 220, 532), flip);
+			screen.render(xo + 8 * flip, yo + 8, 0 + 15 * 32, Color.get(-1, 100, 220, 532), flip);
+			screen.render(xo + 8 - 8 * flip, yo + 8, 1 + 15 * 32, Color.get(-1, 100, 220, 532), flip);
 		}
 
 		for (int y = 0; y < screen.h; y++) {
