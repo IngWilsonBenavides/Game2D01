@@ -28,13 +28,13 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private boolean running = false;
-	private int tickCount;
 	private Screen screen;
 	private InputHandler input = new InputHandler(this);
 	private int walkDist = 0;
 	private int dir = 0;
 
-	private int[] colors = new int[256];
+	private int[] colors1 = new int[256];
+	private int[] colors2 = new int[256];
 
 	public Game() {
 	}
@@ -57,14 +57,18 @@ public class Game extends Canvas implements Runnable {
 					int gg = (g * 255 / 5);
 					int bb = (b * 255 / 5);
 					int mid = (rr * 30 + gg * 59 + bb * 11) / 100;
-					rr = ((rr + mid) / 2) * 200 / 255 + 35;
-					gg = ((gg + mid) / 2) * 200 / 255 + 35;
-					bb = ((bb + mid) / 2) * 200 / 255 + 40;
-					colors[pp++] = rr << 16 | gg << 8 | bb;
+
+					int r1 = ((rr + mid) / 2) * 200 / 255 + 10;
+					int g1 = ((gg + mid) / 2) * 200 / 255 + 10;
+					int b1 = ((bb + mid) / 2) * 200 / 255 + 15;
+					colors1[pp] = r1 << 16 | g1 << 8 | b1;
+
+					int r2 = ((rr + mid) / 2) * 200 / 255 + 45;
+					int g2 = ((gg + mid) / 2) * 200 / 255 + 45;
+					int b2 = ((bb + mid) / 2) * 200 / 255 + 55;
+					colors2[pp++] = r2 << 16 | g2 << 8 | b2;
 				}
-
 			}
-
 		}
 		try {
 			screen = new Screen(WIDTH, HEIGHT,
@@ -125,8 +129,7 @@ public class Game extends Canvas implements Runnable {
 			dir = 1;
 			walked = true;
 			screen.yScroll--;
-		}
-		if (input.down) {
+		} else if (input.down) {
 			dir = 0;
 			walked = true;
 			screen.yScroll++;
@@ -135,15 +138,13 @@ public class Game extends Canvas implements Runnable {
 			dir = 2;
 			walked = true;
 			screen.xScroll--;
-		}
-		if (input.right) {
+		} else if (input.right) {
 			dir = 3;
 			walked = true;
 			screen.xScroll++;
 		}
 		if (walked)
 			walkDist++;
-		tickCount++;
 	}
 
 	public void render() {
@@ -154,7 +155,13 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
-		screen.render();
+		screen.renderBackground();
+		for (int y = 0; y < screen.h; y++) {
+			for (int x = 0; x < screen.w; x++) {
+				pixels[x + y * WIDTH] = colors1[screen.pixels[x + y * screen.w]];
+			}
+		}
+		screen.clear();
 		{
 			int xo = WIDTH / 2 - 8;
 			int yo = HEIGHT / 2 - 8;
@@ -184,13 +191,19 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Font.draw("Testing the 0341879123", screen, 0, 0, Color.get(-1, 555, 555, 555));
+
 		if (!this.hasFocus()) {
 			String msg = "Click to Focus!";
-			Font.draw("Click to Focus!", screen, (WIDTH - msg.length() * 8) / 2, (HEIGHT - 8) / 2, Color.get(-1, 555, 555, 555));
+			int xx = (WIDTH - msg.length() * 8) / 2;
+			int yy = (HEIGHT - 8) / 2;
+			screen.render(xx - 8, yy - 8, 0 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
+			Font.draw("Click to Focus!", screen, xx, yy, Color.get(5, 555, 555, 555));
 		}
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
-				pixels[x + y * WIDTH] = colors[screen.pixels[x + y * screen.w]];
+				int cc = screen.pixels[x + y * screen.w];
+				if (cc < 255)
+					pixels[x + y * WIDTH] = colors2[cc];
 			}
 		}
 

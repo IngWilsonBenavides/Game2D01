@@ -32,7 +32,7 @@ public class Screen {
 		pixels = new int[w * h];
 
 		Random random = new Random();
-		
+
 		for (int i = 0; i < MAP_WIDTH * MAP_WIDTH; i++) {
 			colors[i] = Color.get(00, 40, 50, 40);
 			tiles[i] = 0;
@@ -52,9 +52,13 @@ public class Screen {
 		Font.setMap("Testing the 0341879123", this, 0, 0, Color.get(0, 555, 555, 555));
 	}
 
+	public void clear() {
+		for (int i = 0; i < pixels.length; i++) {
+			pixels[i] = 255;
+		}
+	}
 
-
-	public void render() {
+	public void renderBackground() {
 		for (int yt = yScroll >> 3; yt <= (yScroll + h) >> 3; yt++) {
 			int yp = yt * 8 - yScroll;
 
@@ -62,7 +66,6 @@ public class Screen {
 				int xp = xt * 8 - xScroll;
 				int ti = (xt & (MAP_WIDTH_MASK)) + (yt & (MAP_WIDTH_MASK)) * MAP_WIDTH;
 				render(xp, yp, tiles[ti], colors[ti], databits[ti]);
-
 			}
 		}
 		for (int i = 0; i < sprites.size(); i++) {
