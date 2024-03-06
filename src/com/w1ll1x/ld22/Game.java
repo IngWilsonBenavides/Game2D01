@@ -35,6 +35,7 @@ public class Game extends Canvas implements Runnable {
 
 	private int[] colors1 = new int[256];
 	private int[] colors2 = new int[256];
+	private int tickCount = 0;
 
 	public Game() {
 	}
@@ -121,6 +122,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
+		tickCount++;
 		if (!hasFocus()) {
 			input.releaseAll();
 		}
@@ -211,7 +213,12 @@ public class Game extends Canvas implements Runnable {
 				screen.render(xx - 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
 				screen.render(xx + w * 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 1);
 			}
-			Font.draw("Click to Focus!", screen, xx, yy, Color.get(5, 555, 555, 555));
+			
+			if ((tickCount / 20) % 2 == 0) {
+				Font.draw(msg, screen, xx, yy, Color.get(5, 333, 333, 333));
+			} else {
+				Font.draw(msg, screen, xx, yy, Color.get(5, 555, 555, 555));
+			}
 		}
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
