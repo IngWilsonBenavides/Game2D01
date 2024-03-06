@@ -49,8 +49,7 @@ public class Screen {
 			}
 		}
 
-		new Font().draw("Testing the 0341879123", this, 0, 0);
-		
+		Font.setMap("Testing the 0341879123", this, 0, 0, Color.get(0, 555, 555, 555));
 	}
 
 

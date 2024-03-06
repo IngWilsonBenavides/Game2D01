@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import com.w1ll1x.ld22.gfx.Color;
+import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
 
@@ -30,6 +31,8 @@ public class Game extends Canvas implements Runnable {
 	private int tickCount;
 	private Screen screen;
 	private InputHandler input = new InputHandler(this);
+	private int walkDist = 0;
+	private int dir = 0;
 
 	private int[] colors = new int[256];
 
@@ -114,10 +117,29 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
-		if (input.up) screen.yScroll--;
-		if (input.down) screen.yScroll++;
-		if (input.left) screen.xScroll--;
-		if (input.right) screen.xScroll++;
+		boolean walked = false;
+		if (input.up) {
+			dir = 1;
+			walked = true;
+			screen.yScroll--;
+		}
+		if (input.down) {
+			dir = 0;
+			walked = true;
+			screen.yScroll++;
+		}
+		if (input.left) {
+			dir = 2;
+			walked = true;
+			screen.xScroll--;
+		}
+		if (input.right) {
+			dir = 3;
+			walked = true;
+			screen.xScroll++;
+		}
+		if (walked)
+			walkDist++;
 		tickCount++;
 	}
 
@@ -133,14 +155,32 @@ public class Game extends Canvas implements Runnable {
 		{
 			int xo = WIDTH / 2 - 8;
 			int yo = HEIGHT / 2 - 8;
-			
-			int flip = (screen.yScroll >> 3) & 1;
-			screen.render(xo + 8 * flip, yo + 0, 0 + 14 * 32, Color.get(-1, 100, 220, 532), flip);
-			screen.render(xo + 8 - 8 * flip, yo + 0, 1 + 14 * 32, Color.get(-1, 100, 220, 532), flip);
-			screen.render(xo + 8 * flip, yo + 8, 0 + 15 * 32, Color.get(-1, 100, 220, 532), flip);
-			screen.render(xo + 8 - 8 * flip, yo + 8, 1 + 15 * 32, Color.get(-1, 100, 220, 532), flip);
+
+			int xt = 0;
+			int yt = 14;
+
+			int flip1 = (walkDist >> 3) & 1;
+			int flip2 = (walkDist >> 3) & 1;
+
+			if (dir == 1) {
+				xt += 2;
+			}
+			if (dir > 1) {
+				flip1 = 0;
+				flip2 = (walkDist >> 5) & 1;
+				if (dir == 2) {
+					flip1 = 1;
+				}
+				xt = 4 + ((walkDist >> 3) & 1) * 2;
+			}
+
+			screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, Color.get(-1, 100, 220, 532), flip1);
+			screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, Color.get(-1, 100, 220, 532), flip1);
+			screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, Color.get(-1, 100, 220, 532), flip2);
+			screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, Color.get(-1, 100, 220, 532), flip2);
 		}
 
+		Font.draw("Testing the 0341879123", screen, 0, 0, Color.get(-1, 555, 555, 555));
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				pixels[x + y * WIDTH] = colors[screen.pixels[x + y * screen.w]];
