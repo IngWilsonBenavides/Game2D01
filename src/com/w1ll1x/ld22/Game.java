@@ -117,7 +117,7 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void tick() {
-		if( !hasFocus()) {
+		if (!hasFocus()) {
 			input.releaseAll();
 		}
 		boolean walked = false;
@@ -184,6 +184,10 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Font.draw("Testing the 0341879123", screen, 0, 0, Color.get(-1, 555, 555, 555));
+		if (!this.hasFocus()) {
+			String msg = "Click to Focus!";
+			Font.draw("Click to Focus!", screen, (WIDTH - msg.length() * 8) / 2, (HEIGHT - 8) / 2, Color.get(-1, 555, 555, 555));
+		}
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				pixels[x + y * WIDTH] = colors[screen.pixels[x + y * screen.w]];
