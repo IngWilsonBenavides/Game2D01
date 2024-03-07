@@ -16,6 +16,7 @@ import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
+import com.w1ll1x.ld22.level.Level;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +37,9 @@ public class Game extends Canvas implements Runnable {
 	private int[] colors1 = new int[256];
 	private int[] colors2 = new int[256];
 	private int tickCount = 0;
+	private Level level = new Level(64, 64);
+	
+	private int xScroll, yScroll;
 
 	public Game() {
 	}
@@ -130,20 +134,20 @@ public class Game extends Canvas implements Runnable {
 		if (input.up) {
 			dir = 1;
 			walked = true;
-			screen.yScroll--;
+			yScroll--;
 		} else if (input.down) {
 			dir = 0;
 			walked = true;
-			screen.yScroll++;
+			yScroll++;
 		}
 		if (input.left) {
 			dir = 2;
 			walked = true;
-			screen.xScroll--;
+			xScroll--;
 		} else if (input.right) {
 			dir = 3;
 			walked = true;
-			screen.xScroll++;
+			xScroll++;
 		}
 		if (walked)
 			walkDist++;
@@ -157,7 +161,8 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
-		screen.renderBackground();
+		level.render(screen, xScroll, yScroll);
+		
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				pixels[x + y * WIDTH] = colors1[screen.pixels[x + y * screen.w]];
