@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
@@ -37,9 +38,9 @@ public class Game extends Canvas implements Runnable {
 	private int[] colors1 = new int[256];
 	private int[] colors2 = new int[256];
 	private int tickCount = 0;
-	private Level level = new Level(64, 64);
-	
-	private int xScroll, yScroll;
+
+	private Level level;
+	private Player player;
 
 	public Game() {
 	}
@@ -54,6 +55,11 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void init() {
+		level = new Level(8, 8);
+		player = new Player();
+
+		level.add(player);
+
 		int pp = 0;
 		for (int r = 0; r < 6; r++) {
 			for (int g = 0; g < 6; g++) {
@@ -130,27 +136,29 @@ public class Game extends Canvas implements Runnable {
 		if (!hasFocus()) {
 			input.releaseAll();
 		}
-		boolean walked = false;
+		int xa = 0;
+		int ya = 0;
+
 		if (input.up) {
-			dir = 1;
-			walked = true;
-			yScroll--;
-		} else if (input.down) {
-			dir = 0;
-			walked = true;
-			yScroll++;
+			ya--;
+		}
+		if (input.down) {
+			ya++;
 		}
 		if (input.left) {
-			dir = 2;
-			walked = true;
-			xScroll--;
-		} else if (input.right) {
-			dir = 3;
-			walked = true;
-			xScroll++;
+			xa--;
 		}
-		if (walked)
+		if (input.right) {
+			xa++;
+		}
+		if (xa != 0 || ya != 0) {
+			if (xa < 0) dir = 2;
+			if (xa > 0) dir = 3;
+			if (ya < 0) dir = 1;
+			if (ya > 0) dir = 0;
+			player.move(xa, ya);
 			walkDist++;
+		}
 	}
 
 	public void render() {
@@ -161,8 +169,10 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
+		int xScroll = player.x - screen.w / 2;
+		int yScroll = player.y - screen.h / 2;
 		level.render(screen, xScroll, yScroll);
-		
+
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
 				pixels[x + y * WIDTH] = colors1[screen.pixels[x + y * screen.w]];
@@ -218,7 +228,7 @@ public class Game extends Canvas implements Runnable {
 				screen.render(xx - 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 0);
 				screen.render(xx + w * 8, yy + y * 8, 2 + 13 * 32, Color.get(-1, 1, 5, 445), 1);
 			}
-			
+
 			if ((tickCount / 20) % 2 == 0) {
 				Font.draw(msg, screen, xx, yy, Color.get(5, 333, 333, 333));
 			} else {

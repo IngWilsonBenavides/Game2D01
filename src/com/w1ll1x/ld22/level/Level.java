@@ -1,5 +1,10 @@
 package com.w1ll1x.ld22.level;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.level.tile.Tile;
 
@@ -11,14 +16,21 @@ public class Level {
 
 	public int grassColor = 141;
 
+	public List<Entity> entities = new ArrayList<Entity>();
+
 	public Level(int w, int h) {
 		this.w = w;
 		this.h = h;
 		tiles = new byte[w * h];
 		data = new byte[w * h];
 
+		Random random = new Random();
+
 		for (int i = 0; i < w * h; i++) {
 			tiles[i] = Tile.grass.id;
+			if (random.nextInt(20) == 0) {
+				tiles[i] = Tile.rock.id;
+			}
 		}
 	}
 
@@ -28,16 +40,22 @@ public class Level {
 		int w = (screen.w + 15) >> 4;
 		int h = (screen.h + 15) >> 4;
 		screen.setOffset(xScroll, yScroll);
-		for (int y = yo; y + yo < h; y++) {
-			for (int x = xo; x + xo < w; x++) {
+		for (int y = yo; y <= h + yo; y++) {
+			for (int x = xo; x <= w + xo; x++) {
 				getTile(x, y).render(screen, this, x, y);
 			}
 		}
 		screen.setOffset(0, 0);
 	}
 
-	private Tile getTile(int x, int y) {
-		if (x < 0 || y < 0 || x >= w || y>= h) return Tile.grass;
+	public Tile getTile(int x, int y) {
+		if (x < 0 || y < 0 || x >= w || y >= h)
+			return Tile.grass;
 		return Tile.tiles[tiles[x + y * w]];
+	}
+
+	public void add(Entity entity) {
+		entities.add(entity);
+		entity.init(this);
 	}
 }

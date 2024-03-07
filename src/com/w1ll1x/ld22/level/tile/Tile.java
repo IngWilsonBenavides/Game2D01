@@ -1,11 +1,13 @@
 package com.w1ll1x.ld22.level.tile;
 
+import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.level.Level;
 
 public class Tile {
 	public static Tile[] tiles = new Tile[256];
 	public static Tile grass = new GrassTile(0);
+	public static Tile rock = new RockTile(1);
 	
 	public final byte id;
 	
@@ -15,5 +17,9 @@ public class Tile {
 	}
 
 	public void render(Screen screen, Level level, int x, int y) {
+	}
+	
+	public boolean mayPass(Level level, int x, int y, Entity e) {
+		return true;
 	}
 }
