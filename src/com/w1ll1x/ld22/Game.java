@@ -32,8 +32,6 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
 	private Screen screen;
 	private InputHandler input = new InputHandler(this);
-	private int walkDist = 0;
-	private int dir = 0;
 
 	private int[] colors1 = new int[256];
 	private int[] colors2 = new int[256];
@@ -151,14 +149,7 @@ public class Game extends Canvas implements Runnable {
 		if (input.right) {
 			xa++;
 		}
-		if (xa != 0 || ya != 0) {
-			if (xa < 0) dir = 2;
-			if (xa > 0) dir = 3;
-			if (ya < 0) dir = 1;
-			if (ya > 0) dir = 0;
-			player.move(xa, ya);
-			walkDist++;
-		}
+		player.move(xa, ya);
 	}
 
 	public void render() {
@@ -171,7 +162,7 @@ public class Game extends Canvas implements Runnable {
 
 		int xScroll = player.x - screen.w / 2;
 		int yScroll = player.y - screen.h / 2;
-		level.render(screen, xScroll, yScroll);
+		level.renderBackground(screen, xScroll, yScroll);
 
 		for (int y = 0; y < screen.h; y++) {
 			for (int x = 0; x < screen.w; x++) {
@@ -179,33 +170,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		screen.clear();
-		{
-			int xo = WIDTH / 2 - 8;
-			int yo = HEIGHT / 2 - 8;
-
-			int xt = 0;
-			int yt = 14;
-
-			int flip1 = (walkDist >> 3) & 1;
-			int flip2 = (walkDist >> 3) & 1;
-
-			if (dir == 1) {
-				xt += 2;
-			}
-			if (dir > 1) {
-				flip1 = 0;
-				flip2 = (walkDist >> 5) & 1;
-				if (dir == 2) {
-					flip1 = 1;
-				}
-				xt = 4 + ((walkDist >> 3) & 1) * 2;
-			}
-
-			screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, Color.get(-1, 100, 220, 532), flip1);
-			screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, Color.get(-1, 100, 220, 532), flip1);
-			screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, Color.get(-1, 100, 220, 532), flip2);
-			screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, Color.get(-1, 100, 220, 532), flip2);
-		}
+		level.renderSprites(screen, xScroll, yScroll);
 
 		Font.draw("Testing the 0341879123", screen, 0, 0, Color.get(-1, 555, 555, 555));
 

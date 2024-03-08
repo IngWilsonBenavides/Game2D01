@@ -34,7 +34,7 @@ public class Level {
 		}
 	}
 
-	public void render(Screen screen, int xScroll, int yScroll) {
+	public void renderBackground(Screen screen, int xScroll, int yScroll) {
 		int xo = xScroll >> 4;
 		int yo = yScroll >> 4;
 		int w = (screen.w + 15) >> 4;
@@ -44,6 +44,14 @@ public class Level {
 			for (int x = xo; x <= w + xo; x++) {
 				getTile(x, y).render(screen, this, x, y);
 			}
+		}
+		screen.setOffset(0, 0);
+	}
+	
+	public void renderSprites(Screen screen, int xScroll, int yScroll) {
+		screen.setOffset(xScroll, yScroll);
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).render(screen);
 		}
 		screen.setOffset(0, 0);
 	}
