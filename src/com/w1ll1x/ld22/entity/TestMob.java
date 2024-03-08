@@ -2,8 +2,19 @@ package com.w1ll1x.ld22.entity;
 
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.level.Level;
 
-public class Player extends Mob {
+public class TestMob extends Mob {
+	
+	private int xa, ya;
+	
+	public void tick() {
+		if (random.nextInt(40) == 0) {
+			xa = random.nextInt(3) - 1;
+			ya = random.nextInt(3) - 1;
+		}
+		move(xa, ya);
+	}
 	
 	public void render(Screen screen) {
 		int xt = 0;

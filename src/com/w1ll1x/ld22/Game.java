@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import com.w1ll1x.ld22.entity.Player;
+import com.w1ll1x.ld22.entity.TestMob;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
@@ -57,6 +58,11 @@ public class Game extends Canvas implements Runnable {
 		player = new Player();
 
 		level.add(player);
+		level.add(new TestMob());
+		level.add(new TestMob());
+		level.add(new TestMob());
+		level.add(new TestMob());
+		level.add(new TestMob());
 
 		int pp = 0;
 		for (int r = 0; r < 6; r++) {
@@ -131,6 +137,8 @@ public class Game extends Canvas implements Runnable {
 
 	public void tick() {
 		tickCount++;
+		
+		level.tick();
 		if (!hasFocus()) {
 			input.releaseAll();
 		}
