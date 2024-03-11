@@ -4,12 +4,12 @@ public class Mob extends Entity {
 
 	protected int walkDist = 0;
 	protected int dir = 0;
-	
+
 	public Mob() {
 		x = y = 8;
 	}
 
-	public void move(int xa, int ya) {
+	public boolean move(int xa, int ya) {
 		if (xa != 0 || ya != 0) {
 			walkDist++;
 			if (xa < 0)
@@ -20,15 +20,17 @@ public class Mob extends Entity {
 				dir = 1;
 			if (ya > 0)
 				dir = 0;
+			boolean stopped = true;
+			if (xa != 0 && move2(xa, 0))
+				stopped = false;
+			if (ya != 0 && move2(0, ya))
+				stopped = false;
+			return !stopped;
 		}
-
-		if (xa != 0)
-			move2(xa, 0);
-		if (ya != 0)
-			move2(0, ya);
+		return true;
 	}
 
-	private void move2(int xa, int ya) {
+	private boolean move2(int xa, int ya) {
 		int xr = 4;
 		int yr = 2;
 		boolean mayPass = true;
@@ -42,7 +44,8 @@ public class Mob extends Entity {
 		if (mayPass) {
 			x += xa;
 			y += ya;
+			return true;
 		}
+		return false;
 	}
-
 }

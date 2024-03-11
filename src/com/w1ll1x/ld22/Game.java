@@ -54,15 +54,13 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void init() {
-		level = new Level(8, 8);
-		player = new Player();
+		level = new Level(64, 64);
+		player = new Player(input);
 
 		level.add(player);
-		level.add(new TestMob());
-		level.add(new TestMob());
-		level.add(new TestMob());
-		level.add(new TestMob());
-		level.add(new TestMob());
+		for (int i = 0; i < 1000; i++) {
+			level.add(new TestMob());
+		}
 
 		int pp = 0;
 		for (int r = 0; r < 6; r++) {
@@ -137,27 +135,11 @@ public class Game extends Canvas implements Runnable {
 
 	public void tick() {
 		tickCount++;
-		
+
 		level.tick();
 		if (!hasFocus()) {
 			input.releaseAll();
 		}
-		int xa = 0;
-		int ya = 0;
-
-		if (input.up) {
-			ya--;
-		}
-		if (input.down) {
-			ya++;
-		}
-		if (input.left) {
-			xa--;
-		}
-		if (input.right) {
-			xa++;
-		}
-		player.move(xa, ya);
 	}
 
 	public void render() {

@@ -13,11 +13,10 @@ public class TestMob extends Mob {
 	}
 
 	public void tick() {
-		if (random.nextInt(40) == 0) {
+		if (!move(xa, ya) || random.nextInt(40) == 0) {
 			xa = random.nextInt(3) - 1;
 			ya = random.nextInt(3) - 1;
 		}
-		move(xa, ya);
 	}
 
 	public void render(Screen screen) {
