@@ -4,6 +4,10 @@ public class Mob extends Entity {
 
 	protected int walkDist = 0;
 	protected int dir = 0;
+	
+	public Mob() {
+		x = y = 8;
+	}
 
 	public void move(int xa, int ya) {
 		if (xa != 0 || ya != 0) {

@@ -58,7 +58,7 @@ public class Level {
 
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= w || y >= h)
-			return Tile.grass;
+			return Tile.rock;
 		return Tile.tiles[tiles[x + y * w]];
 	}
 
