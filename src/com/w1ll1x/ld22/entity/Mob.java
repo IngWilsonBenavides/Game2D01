@@ -32,7 +32,7 @@ public class Mob extends Entity {
 
 	private boolean move2(int xa, int ya) {
 		int xr = 4;
-		int yr = 2;
+		int yr = 3;
 		boolean mayPass = true;
 		for (int c = 0; c < 4 && mayPass; c++) {
 			int xt = ((x + xa) + (c % 2 * 2 - 1) * xr) >> 4;

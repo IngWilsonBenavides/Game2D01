@@ -31,7 +31,7 @@ public class TestMob extends Mob {
 		}
 		if (dir > 1) {
 			flip1 = 0;
-			flip2 = (walkDist >> 5) & 1;
+			flip2 = (walkDist >> 4) & 1;
 			if (dir == 2) {
 				flip1 = 1;
 			}
@@ -39,7 +39,7 @@ public class TestMob extends Mob {
 		}
 
 		int xo = x - 8;
-		int yo = y - 12;
+		int yo = y - 11;
 
 		screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, Color.get(-1, 100, shirtColor, 532), flip1);
 		screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, Color.get(-1, 100, shirtColor, 532), flip1);

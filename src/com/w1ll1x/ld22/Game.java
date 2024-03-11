@@ -152,6 +152,10 @@ public class Game extends Canvas implements Runnable {
 
 		int xScroll = player.x - screen.w / 2;
 		int yScroll = player.y - screen.h / 2;
+		if (xScroll < 0) xScroll = 0;
+		if (yScroll < 0) yScroll = 0;
+		if (xScroll > level.w * 16 - screen.w) xScroll = level.w * 16 - screen.w;
+		if (yScroll > level.h * 16 - screen.h) yScroll = level.h * 16 - screen.h;
 		level.renderBackground(screen, xScroll, yScroll);
 
 		for (int y = 0; y < screen.h; y++) {
