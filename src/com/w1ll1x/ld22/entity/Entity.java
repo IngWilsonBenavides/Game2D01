@@ -8,6 +8,8 @@ import com.w1ll1x.ld22.level.Level;
 public class Entity {
 	protected final Random random = new Random();
 	public int x, y;
+	public int xr = 6;
+	public int yr = 6;
 	public boolean removed;
 	public Level level;
 	
@@ -24,5 +26,13 @@ public class Entity {
 
 	public final void init(Level level) {
 		this.level = level;
+	}
+
+	public boolean intersects(int x0, int y0, int x1, int y1) {
+		return !(x + xr < x0 || y + yr < y0 || x - xr > x1 || y - yr > y1);
+	}
+
+	public boolean blocks(Mob mob) {
+		return false;
 	}
 }

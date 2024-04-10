@@ -23,11 +23,13 @@ public class Level {
 	private Comparator<Entity> spriteSorter = new Comparator<Entity>() {
 
 		public int compare(Entity e0, Entity e1) {
-			if (e1.y < e0.y)return +1; 
-			if (e1.y > e0.y)return -1; 
+			if (e1.y < e0.y)
+				return +1;
+			if (e1.y > e0.y)
+				return -1;
 			return 0;
 		}
-		
+
 	};
 
 	@SuppressWarnings("unchecked")
@@ -131,6 +133,25 @@ public class Level {
 				if (xto != xt || yto != yt) {
 					removeEntity(xto, yto, e);
 					insertEntity(xt, yt, e);
+				}
+			}
+		}
+	}
+
+	public void getEntities(List<Entity> result, int x0, int y0, int x1, int y1) {
+		int xt0 = (x0 >> 4) - 1;
+		int yt0 = (y0 >> 4) - 1;
+		int xt1 = (x1 >> 4) + 1;
+		int yt1 = (y1 >> 4) + 1;
+		for (int y = yt0; y <= yt1; y++) {
+			for (int x = xt0; x <= xt1; x++) {
+				if (x < 0 || y < 0 || x >= w || y >= h)
+					continue;
+				List<Entity> entities = entitiesInTiles[x + y * this.w];
+				for (int i = 0; i < entities.size(); i++) {
+					Entity e = entities.get(i);
+					if (e.intersects(x0, y0, x1, y1))
+						result.add(e);
 				}
 			}
 		}
