@@ -50,11 +50,28 @@ public class Player extends Mob {
 
 		int xo = x - 8;
 		int yo = y - 11;
-
+		
+		if (dir == 1) {			
+			screen.render(xo + 0, yo - 2, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 0);
+			screen.render(xo + 8, yo - 2, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 1);
+		}
+		
 		screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, Color.get(-1, 100, 220, 532), flip1);
 		screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, Color.get(-1, 100, 220, 532), flip1);
 		screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, Color.get(-1, 100, 220, 532), flip2);
 		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, Color.get(-1, 100, 220, 532), flip2);
+		if (dir == 2) {			
+			screen.render(xo - 2, yo, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 1);
+			screen.render(xo - 2, yo + 8, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
+		}
+		if (dir == 3) {			
+			screen.render(xo + 8 + 2, yo, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 0);
+			screen.render(xo + 8 + 2, yo + 8, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 2);
+		}
+		if (dir == 0) {			
+			screen.render(xo + 0, yo + 8 + 2, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 2);
+			screen.render(xo + 8, yo + 8 + 2, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
+		}
 	}
 
 }
