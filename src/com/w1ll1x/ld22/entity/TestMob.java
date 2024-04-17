@@ -10,14 +10,14 @@ public class TestMob extends Mob {
 	
 	public TestMob() {
 		shirtColor = random.nextInt(6) * 100 + random.nextInt(6) * 10 + random.nextInt(6);
-		x = 32;
-		y = 32;
+		x = random.nextInt(64 * 16);
+		y = random.nextInt(64 * 16);
 	}
 
 	public void tick() {
 		if (!move(xa, ya) || random.nextInt(40) == 0) {
-//			xa = random.nextInt(3) - 1;
-//			ya = random.nextInt(3) - 1;
+			xa = random.nextInt(3) - 1;
+			ya = random.nextInt(3) - 1;
 		}
 	}
 
@@ -47,9 +47,5 @@ public class TestMob extends Mob {
 		screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, Color.get(-1, 100, shirtColor, 532), flip1);
 		screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, Color.get(-1, 100, shirtColor, 532), flip2);
 		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, Color.get(-1, 100, shirtColor, 532), flip2);
-	}
-	
-	public boolean blocks(Mob mob) {
-		return true;
 	}
 }

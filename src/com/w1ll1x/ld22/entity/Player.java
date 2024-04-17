@@ -10,6 +10,8 @@ public class Player extends Mob {
 	
 	public Player(InputHandler input) {
 		this.input = input;
+		x = 16;
+		y = 16;
 	}
 
 	public void tick() {

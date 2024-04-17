@@ -67,6 +67,7 @@ public class Level {
 		screen.setOffset(0, 0);
 	}
 
+	private List<Entity> rowSprites = new ArrayList<Entity>();
 	public void renderSprites(Screen screen, int xScroll, int yScroll) {
 		int xo = xScroll >> 4;
 		int yo = yScroll >> 4;
@@ -77,11 +78,12 @@ public class Level {
 			for (int x = xo; x <= w + xo; x++) {
 				if (x < 0 || y < 0 || x >= this.w || y >= this.h)
 					continue;
-				if (entities.size() > 0) {
-					List<Entity> entities = entitiesInTiles[x + y * this.w];
-					sortAndRender(screen, entities);
-				}
+				rowSprites.addAll(entitiesInTiles[x + y * this.w]);
 			}
+			if (rowSprites.size() > 0) {
+				sortAndRender(screen, rowSprites);
+			}
+			rowSprites.clear();
 		}
 		screen.setOffset(0, 0);
 	}
