@@ -15,6 +15,7 @@ public class TestMob extends Mob {
 	}
 
 	public void tick() {
+		super.tick();
 		if (!move(xa, ya) || random.nextInt(40) == 0) {
 			xa = random.nextInt(3) - 1;
 			ya = random.nextInt(3) - 1;
@@ -42,10 +43,15 @@ public class TestMob extends Mob {
 
 		int xo = x - 8;
 		int yo = y - 11;
+		
+		int col = Color.get(-1, 100, shirtColor, 532);
+		if (hurtTime > 0) {
+			col = Color.get(-1, 555, 555, 555);
+		}
 
-		screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, Color.get(-1, 100, shirtColor, 532), flip1);
-		screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, Color.get(-1, 100, shirtColor, 532), flip1);
-		screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, Color.get(-1, 100, shirtColor, 532), flip2);
-		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, Color.get(-1, 100, shirtColor, 532), flip2);
+		screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, col, flip1);
+		screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, col, flip1);
+		screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, col, flip2);
+		screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2);
 	}
 }

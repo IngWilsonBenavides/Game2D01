@@ -35,4 +35,8 @@ public class Entity {
 	public boolean blocks(Mob mob) {
 		return false;
 	}
+
+	public void hurt(Mob mob, int i) {
+		
+	}
 }

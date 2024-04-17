@@ -68,6 +68,7 @@ public class Level {
 	}
 
 	private List<Entity> rowSprites = new ArrayList<Entity>();
+
 	public void renderSprites(Screen screen, int xScroll, int yScroll) {
 		int xo = xScroll >> 4;
 		int yo = yScroll >> 4;
@@ -140,7 +141,9 @@ public class Level {
 		}
 	}
 
-	public void getEntities(List<Entity> result, int x0, int y0, int x1, int y1) {
+	public List<Entity> getEntities(int x0, int y0, int x1, int y1) {
+		List<Entity> result = new ArrayList<Entity>();
+		
 		int xt0 = (x0 >> 4) - 1;
 		int yt0 = (y0 >> 4) - 1;
 		int xt1 = (x1 >> 4) + 1;
@@ -157,5 +160,6 @@ public class Level {
 				}
 			}
 		}
+		return result;
 	}
 }

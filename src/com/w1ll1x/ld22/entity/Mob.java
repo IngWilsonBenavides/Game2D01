@@ -7,11 +7,17 @@ public class Mob extends Entity {
 
 	protected int walkDist = 0;
 	protected int dir = 0;
+	public int hurtTime = 0;
 
 	public Mob() {
 		x = y = 8;
 		xr = 4;
 		yr = 3;
+	}
+
+	public void tick() {
+		if (hurtTime > 0)
+			hurtTime--;
 	}
 
 	public boolean move(int xa, int ya) {
@@ -35,8 +41,6 @@ public class Mob extends Entity {
 		return true;
 	}
 
-	private List<List<Entity>> hitResults = new ArrayList<List<Entity>>();
-	
 	private boolean move2(int xa, int ya) {
 		if (xa != 0 && ya != 0)
 			throw new IllegalArgumentException("Move2 can only move along one axis at a time!");
@@ -48,21 +52,8 @@ public class Mob extends Entity {
 			}
 		}
 
-		List<Entity> isInside;
-		List<Entity> wasInside;
-		if (hitResults.size() > 0) {
-			isInside = hitResults.remove(hitResults.size() - 1);
-		} else {
-			isInside = new ArrayList<Entity>();
-		}
-		if (hitResults.size() > 0) {
-			wasInside = hitResults.remove(hitResults.size() - 1);
-		} else {
-			wasInside = new ArrayList<Entity>();
-		}
-
-		level.getEntities(wasInside, x - xr, y - yr, x + xr, y + yr);
-		level.getEntities(isInside, x + xa - xr, y + ya - yr, x + xa + xr, y + ya + yr);
+		List<Entity> wasInside = level.getEntities(x - xr, y - yr, x + xr, y + yr);
+		List<Entity> isInside = level.getEntities(x + xa - xr, y + ya - yr, x + xa + xr, y + ya + yr);
 		isInside.removeAll(wasInside);
 		for (int i = 0; i < isInside.size(); i++) {
 			Entity e = isInside.get(i);
@@ -72,16 +63,17 @@ public class Mob extends Entity {
 				return false;
 			}
 		}
-		isInside.clear();
-		wasInside.clear();
-		hitResults.add(wasInside);
-		hitResults.add(isInside);
+
 		x += xa;
 		y += ya;
 		return true;
 	}
-	
+
 	public boolean blocks(Mob mob) {
 		return true;
+	}
+
+	public void hurt(Mob mob, int i) {
+		hurtTime = 10;
 	}
 }

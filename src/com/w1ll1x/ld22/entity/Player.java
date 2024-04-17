@@ -1,5 +1,7 @@
 package com.w1ll1x.ld22.entity;
 
+import java.util.List;
+
 import com.w1ll1x.ld22.InputHandler;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
@@ -17,6 +19,7 @@ public class Player extends Mob {
 	}
 
 	public void tick() {
+		super.tick();
 		int xa = 0;
 		int ya = 0;
 
@@ -31,16 +34,38 @@ public class Player extends Mob {
 		move(xa, ya);
 
 		if (input.attack) {
-			if (!wasAttacking) {
-				attackDir = dir;
-				attackTime = 5;
-				wasAttacking = true;
-			}
+			if (!wasAttacking)
+				attack();
+			wasAttacking = true;
 		} else {
 			wasAttacking = false;
 		}
 		if (attackTime > 0)
 			attackTime--;
+	}
+
+	private void attack() {
+		attackDir = dir;
+		attackTime = 5;
+		if (dir == 0) {
+			hurt(level.getEntities(x - 8, y + 4, x + 8, y + 12));
+		}
+		if (dir == 1) {
+			hurt(level.getEntities(x - 8, y - 12, x + 8, y - 4));
+		}
+		if (dir == 3) {
+			hurt(level.getEntities(x + 4, y - 8, x + 12, y + 8));
+		}
+		if (dir == 2) {
+			hurt(level.getEntities(x - 12, y - 8, x - 4, y + 8));
+		}
+	}
+
+	private void hurt(List<Entity> entities) {
+		for (int i = 0; i < entities.size(); i++) {
+			Entity e = entities.get(i);
+			if (e != this) e.hurt(this, 1);
+		}
 	}
 
 	public void render(Screen screen) {
