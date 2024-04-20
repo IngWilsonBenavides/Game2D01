@@ -8,6 +8,7 @@ public class Mob extends Entity {
 	protected int walkDist = 0;
 	protected int dir = 0;
 	public int hurtTime = 0;
+	protected int xKnockback, yKnockback;
 
 	public Mob() {
 		x = y = 8;
@@ -21,6 +22,24 @@ public class Mob extends Entity {
 	}
 
 	public boolean move(int xa, int ya) {
+		if (xKnockback < 0) {
+			move2(-1, 0);
+			xKnockback++;
+		}
+		if (xKnockback > 0) {
+			move2(1, 0);
+			xKnockback--;
+		}
+		if (yKnockback < 0) {
+			move2(0, -1);
+			yKnockback++;
+		}
+		if (yKnockback > 0) {
+			move2(0, 1);
+			yKnockback--;
+		}
+		if (hurtTime > 0)
+			return true;
 		if (xa != 0 || ya != 0) {
 			walkDist++;
 			if (xa < 0)
@@ -73,7 +92,15 @@ public class Mob extends Entity {
 		return true;
 	}
 
-	public void hurt(Mob mob, int i) {
+	public void hurt(Mob mob, int i, int attackDir) {
+		if (attackDir == 0)
+			yKnockback = +6;
+		if (attackDir == 1)
+			yKnockback = -6;
+		if (attackDir == 2)
+			xKnockback = -6;
+		if (attackDir == 3)
+			xKnockback = +6;
 		hurtTime = 10;
 	}
 }

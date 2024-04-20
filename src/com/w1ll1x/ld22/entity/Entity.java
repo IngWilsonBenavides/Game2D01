@@ -36,7 +36,7 @@ public class Entity {
 		return false;
 	}
 
-	public void hurt(Mob mob, int i) {
+	public void hurt(Mob mob, int i, int attackDir) {
 		
 	}
 }

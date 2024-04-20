@@ -17,8 +17,8 @@ public class TestMob extends Mob {
 	public void tick() {
 		super.tick();
 		if (!move(xa, ya) || random.nextInt(40) == 0) {
-			xa = random.nextInt(3) - 1;
-			ya = random.nextInt(3) - 1;
+			xa = (random.nextInt(3) - 1) * random.nextInt(4) / 3;
+			ya = (random.nextInt(3) - 1) * random.nextInt(4) / 3;
 		}
 	}
 

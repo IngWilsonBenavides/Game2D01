@@ -14,8 +14,8 @@ public class Player extends Mob {
 
 	public Player(InputHandler input) {
 		this.input = input;
-		x = 16;
-		y = 16;
+		x = 24;
+		y = 24;
 	}
 
 	public void tick() {
@@ -64,7 +64,7 @@ public class Player extends Mob {
 	private void hurt(List<Entity> entities) {
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			if (e != this) e.hurt(this, 1);
+			if (e != this) e.hurt(this, 1, attackDir);
 		}
 	}
 
