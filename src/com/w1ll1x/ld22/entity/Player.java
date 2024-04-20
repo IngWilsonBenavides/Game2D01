@@ -45,6 +45,7 @@ public class Player extends Mob {
 	}
 
 	private void attack() {
+		walkDist += 8;
 		attackDir = dir;
 		attackTime = 5;
 		if (dir == 0) {
