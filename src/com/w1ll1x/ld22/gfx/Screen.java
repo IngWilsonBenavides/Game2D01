@@ -1,9 +1,5 @@
 package com.w1ll1x.ld22.gfx;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class Screen {
 
 	/*public static final int MAP_WIDTH = 64;

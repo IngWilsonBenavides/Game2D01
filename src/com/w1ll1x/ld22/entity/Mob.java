@@ -1,7 +1,9 @@
 package com.w1ll1x.ld22.entity;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.w1ll1x.ld22.entity.particle.TextParticle;
+import com.w1ll1x.ld22.gfx.Color;
 
 public class Mob extends Entity {
 
@@ -97,6 +99,7 @@ public class Mob extends Entity {
 	}
 
 	public void hurt(Mob mob, int damage, int attackDir) {
+		level.add( new TextParticle("" + damage, x, y, Color.get(-1, 500, 500, 500) ) );
 		health -= damage;
 		if (attackDir == 0)
 			yKnockback = +6;
