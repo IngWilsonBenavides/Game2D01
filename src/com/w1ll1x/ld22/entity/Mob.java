@@ -9,6 +9,7 @@ public class Mob extends Entity {
 	protected int dir = 0;
 	public int hurtTime = 0;
 	protected int xKnockback, yKnockback;
+	public int health = 10;
 
 	public Mob() {
 		x = y = 8;
@@ -17,6 +18,9 @@ public class Mob extends Entity {
 	}
 
 	public void tick() {
+		if (health < 0) {
+			remove();
+		}
 		if (hurtTime > 0)
 			hurtTime--;
 	}
@@ -92,7 +96,8 @@ public class Mob extends Entity {
 		return true;
 	}
 
-	public void hurt(Mob mob, int i, int attackDir) {
+	public void hurt(Mob mob, int damage, int attackDir) {
+		health -= damage;
 		if (attackDir == 0)
 			yKnockback = +6;
 		if (attackDir == 1)
