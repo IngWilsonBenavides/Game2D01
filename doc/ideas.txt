@@ -10,3 +10,5 @@ harvest moon
 limitations:
 low resolution
 4 colors per block of 8x8 pixels
+
+investigar sobre  Perlin Noise
