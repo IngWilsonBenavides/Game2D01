@@ -20,7 +20,7 @@ public class Mob extends Entity {
 	}
 
 	public void tick() {
-		if (health < 0) {
+		if (health <= 0) {
 			remove();
 		}
 		if (hurtTime > 0)
