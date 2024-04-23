@@ -8,6 +8,7 @@ import java.util.Random;
 
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.level.levelgen.NoiseMap;
 import com.w1ll1x.ld22.level.tile.Tile;
 
 public class Level {
@@ -36,20 +37,11 @@ public class Level {
 	public Level(int w, int h) {
 		this.w = w;
 		this.h = h;
-		tiles = new byte[w * h];
+		tiles = NoiseMap.getMap(w, h);
 		data = new byte[w * h];
 		entitiesInTiles = new ArrayList[w * h];
 		for (int i = 0; i < w * h; i++) {
 			entitiesInTiles[i] = new ArrayList<Entity>();
-		}
-
-		Random random = new Random();
-
-		for (int i = 0; i < w * h; i++) {
-			tiles[i] = Tile.grass.id;
-			if (random.nextInt(20) == 0) {
-				tiles[i] = Tile.rock.id;
-			}
 		}
 	}
 

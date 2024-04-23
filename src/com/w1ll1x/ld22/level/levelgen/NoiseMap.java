@@ -6,6 +6,8 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import com.w1ll1x.ld22.level.tile.Tile;
+
 public class NoiseMap {
 
 	private static final Random random = new Random();
@@ -26,6 +28,7 @@ public class NoiseMap {
 
 		int stepSize = featureSize;
 		double scale = 1.0 / w;
+		double scaleMod = 1;
 		do {
 			int halfStep = stepSize / 2;
 			for (int y = 0; y < w; y += stepSize) {
@@ -48,14 +51,15 @@ public class NoiseMap {
 					double e = sample(x + halfStep, y - halfStep);
 					double f = sample(x - halfStep, y + halfStep);
 
-					double H = (a + b + d + e) / 4.0 + (random.nextFloat() * 2 - 1) * stepSize * scale;
-					double g = (a + b + c + f) / 4.0 + (random.nextFloat() * 2 - 1) * stepSize * scale;
+					double H = (a + b + d + e) / 4.0 + (random.nextFloat() * 2 - 1) * stepSize * scale * 0.5;
+					double g = (a + b + c + f) / 4.0 + (random.nextFloat() * 2 - 1) * stepSize * scale * 0.5;
 					setSample(x + halfStep, y, H);
 					setSample(x, y + halfStep, g);
 				}
 			}
 			stepSize /= 2;
-			scale *= 1.4;
+			scale *= (scaleMod + 1);
+			scaleMod *= 0.6;
 		} while (stepSize > 1);
 	}
 
@@ -67,29 +71,62 @@ public class NoiseMap {
 		values[(x & (w - 1)) + (y & (h - 1)) * w] = value;
 	}
 
-	public static void main(String[] args) {
-		int w = 512;
-		int h = 512;
-		NoiseMap noise1 = new NoiseMap(w, h, 32);
-		NoiseMap noise2 = new NoiseMap(w, h, 64);
+	public static byte[] getMap(int w, int h) {
+		NoiseMap noise1 = new NoiseMap(w, h, 64);
+		NoiseMap noise2 = new NoiseMap(w, h, 128);
 
 		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-		int[] pixels = new int[w * h];
+		byte[] map = new byte[w * h];
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
 				int i = x + y * w;
 
-				double val = noise1.values[i] + noise2.values[i];
+				double val = Math.abs(noise1.values[i] + noise2.values[i]) * 5 - 2;
 
 				double xd = x / (w - 1.0) * 2 - 1;
 				double yd = y / (h - 1.0) * 2 - 1;
-				val = val + 1 - (xd * xd + yd * yd) * 4;
+				if (xd < 0)
+					xd = -xd;
+				if (yd < 0)
+					yd = -yd;
+				double dist = xd >= yd ? xd : yd;
+				dist = dist * dist * dist * dist;
+				dist = dist * dist * dist * dist;
+				val = val + 1 - dist * 20;
 
 				int br = val < 0 ? 0 : 255;
-				pixels[i] = br << 16 | br << 8 | br;
+				if (val < 0) {
+					map[i] = Tile.water.id;
+				} else if (val > 1) {
+					map[i] = Tile.rock.id;
+				} else {
+					map[i] = Tile.grass.id;
+				}
 			}
 		}
-		img.setRGB(0, 0, w, h, pixels, 0, w);
-		JOptionPane.showMessageDialog(null, null, "The image", JOptionPane.INFORMATION_MESSAGE, new ImageIcon(img));
+		return map;
+	}
+
+	public static void main(String[] args) {
+		for (int j = 0; j < 5; j++) {
+			int w = 512;
+			int h = 512;
+			
+			byte[] map = NoiseMap.getMap(w, h);
+
+			BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+			int[] pixels = new int[w * h];
+			for (int y = 0; y < h; y++) {
+				for (int x = 0; x < w; x++) {
+					int i = x + y * w;
+
+					if (map[i] == Tile.water.id) pixels[i] = 0x000080;
+					if (map[i] == Tile.grass.id) pixels[i] = 0x208020;
+					if (map[i] == Tile.rock.id) pixels[i] = 0x404040;
+				}
+			}
+			img.setRGB(0, 0, w, h, pixels, 0, w);
+			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img));
+		}
 	}
 }
