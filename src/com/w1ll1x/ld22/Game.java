@@ -54,8 +54,9 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	private void init() {
-		level = new Level(512, 512);
+		level = new Level(128, 128);
 		player = new Player(input);
+		player.findStartPos(level);
 
 		level.add(player);
 		for (int i = 0; i < 10; i++) {
@@ -152,10 +153,14 @@ public class Game extends Canvas implements Runnable {
 
 		int xScroll = player.x - screen.w / 2;
 		int yScroll = player.y - screen.h / 2;
-		if (xScroll < 0) xScroll = 0;
-		if (yScroll < 0) yScroll = 0;
-		if (xScroll > level.w * 16 - screen.w) xScroll = level.w * 16 - screen.w;
-		if (yScroll > level.h * 16 - screen.h) yScroll = level.h * 16 - screen.h;
+		if (xScroll < 0)
+			xScroll = 0;
+		if (yScroll < 0)
+			yScroll = 0;
+		if (xScroll > level.w * 16 - screen.w)
+			xScroll = level.w * 16 - screen.w;
+		if (yScroll > level.h * 16 - screen.h)
+			yScroll = level.h * 16 - screen.h;
 		level.renderBackground(screen, xScroll, yScroll);
 
 		for (int y = 0; y < screen.h; y++) {

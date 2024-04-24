@@ -5,6 +5,7 @@ import java.util.List;
 import com.w1ll1x.ld22.InputHandler;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.level.Level;
 
 public class Player extends Mob {
 
@@ -65,7 +66,8 @@ public class Player extends Mob {
 	private void hurt(List<Entity> entities) {
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
-			if (e != this) e.hurt(this, random.nextInt(4) + 1, attackDir);
+			if (e != this)
+				e.hurt(this, random.nextInt(4) + 1, attackDir);
 		}
 	}
 
@@ -111,6 +113,18 @@ public class Player extends Mob {
 		if (attackTime > 0 && attackDir == 0) {
 			screen.render(xo + 0, yo + 8 + 4, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 2);
 			screen.render(xo + 8, yo + 8 + 4, 6 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
+		}
+	}
+
+	public void findStartPos(Level level) {
+		while (true) {
+			int x = random.nextInt(level.w);
+			int y = random.nextInt(level.h);
+			if (level.getTile(x, y).mayPass(level, x, y, this)) {
+				this.x = x * 16 + 8;
+				this.y = y * 16 + 8;
+				return;
+			}
 		}
 	}
 

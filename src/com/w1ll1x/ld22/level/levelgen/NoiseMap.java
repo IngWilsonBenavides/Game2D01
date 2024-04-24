@@ -59,7 +59,7 @@ public class NoiseMap {
 			}
 			stepSize /= 2;
 			scale *= (scaleMod + 1);
-			scaleMod *= 0.6;
+			scaleMod *= 0.3;
 		} while (stepSize > 1);
 	}
 
@@ -72,16 +72,15 @@ public class NoiseMap {
 	}
 
 	public static byte[] getMap(int w, int h) {
-		NoiseMap noise1 = new NoiseMap(w, h, 64);
-		NoiseMap noise2 = new NoiseMap(w, h, 128);
+		NoiseMap noise1 = new NoiseMap(w, h, w / 4);
+		NoiseMap noise2 = new NoiseMap(w, h, w / 4);
 
-		BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 		byte[] map = new byte[w * h];
 		for (int y = 0; y < h; y++) {
 			for (int x = 0; x < w; x++) {
 				int i = x + y * w;
 
-				double val = Math.abs(noise1.values[i] + noise2.values[i]) * 5 - 2;
+				double val = Math.abs(noise1.values[i] + noise2.values[i]) * 3 - 2;
 
 				double xd = x / (w - 1.0) * 2 - 1;
 				double yd = y / (h - 1.0) * 2 - 1;
@@ -94,7 +93,6 @@ public class NoiseMap {
 				dist = dist * dist * dist * dist;
 				val = val + 1 - dist * 20;
 
-				int br = val < 0 ? 0 : 255;
 				if (val < 0) {
 					map[i] = Tile.water.id;
 				} else if (val > 1) {
@@ -109,8 +107,8 @@ public class NoiseMap {
 
 	public static void main(String[] args) {
 		for (int j = 0; j < 5; j++) {
-			int w = 512;
-			int h = 512;
+			int w = 128;
+			int h = 128;
 			
 			byte[] map = NoiseMap.getMap(w, h);
 
