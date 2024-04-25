@@ -12,31 +12,52 @@ public class WaterTile extends Tile {
 	}
 
 	public void render(Screen screen, Level level, int x, int y) {
-		int col = Color.get(4, 4, 335, 335);
-		int transitionColor = Color.get(100, 4, 211, level.grassColor);
+		int col = Color.get(4, 4, 5, 5);
+		int transitionColor = Color.get(0, 4, 20, level.grassColor);
 
 		boolean u = level.getTile(x, y - 1) != this;
 		boolean d = level.getTile(x, y + 1) != this;
 		boolean l = level.getTile(x - 1, y) != this;
 		boolean r = level.getTile(x + 1, y) != this;
 
+		boolean ul = level.getTile(x - 1, y - 1) != this;
+		boolean dl = level.getTile(x - 1, y + 1) != this;
+		boolean ur = level.getTile(x + 1, y - 1) != this;
+		boolean dr = level.getTile(x + 1, y + 1) != this;
+
 		if (!u && !l) {
-			screen.render(x * 16 + 0, y * 16 + 0, 0, col, 0);
+			if (!ul) {
+				screen.render(x * 16 + 0, y * 16 + 0, 0, col, 0);
+			} else {
+				screen.render(x * 16 + 0, y * 16 + 0, 8 + 1 * 32, transitionColor, 0);
+			}
 		} else {
 			screen.render(x * 16 + 0, y * 16 + 0, (l ? 4 : 5) + (u ? 0 : 1) * 32, transitionColor, 0);
 		}
 		if (!u && !r) {
-			screen.render(x * 16 + 8, y * 16 + 0, 0, col, 0);
+			if (!ur) {
+				screen.render(x * 16 + 8, y * 16 + 0, 1, col, 0);
+			} else {
+				screen.render(x * 16 + 8, y * 16 + 0, 7 + 1 * 32, transitionColor, 0);
+			}
 		} else {
 			screen.render(x * 16 + 8, y * 16 + 0, (r ? 6 : 5) + (u ? 0 : 1) * 32, transitionColor, 0);
 		}
 		if (!d && !l) {
-			screen.render(x * 16 + 0, y * 16 + 8, 0, col, 0);
+			if (!dl) {
+				screen.render(x * 16 + 0, y * 16 + 8, 2, col, 0);
+			} else {
+				screen.render(x * 16 + 0, y * 16 + 8, 8 + 0 * 32, transitionColor, 0);
+			}
 		} else {
 			screen.render(x * 16 + 0, y * 16 + 8, (l ? 4 : 5) + (d ? 2 : 1) * 32, transitionColor, 0);
 		}
 		if (!d && !r) {
-			screen.render(x * 16 + 8, y * 16 + 8, 0, col, 0);
+			if (!dr) {
+				screen.render(x * 16 + 8, y * 16 + 8, 3, col, 0);
+			} else {
+				screen.render(x * 16 + 8, y * 16 + 8, 7 + 0 * 32, transitionColor, 0);
+			}
 		} else {
 			screen.render(x * 16 + 8, y * 16 + 8, (r ? 6 : 5) + (d ? 2 : 1) * 32, transitionColor, 0);
 		}
