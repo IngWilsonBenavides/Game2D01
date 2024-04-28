@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+import com.w1ll1x.ld22.entity.Mob;
 import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.entity.TestMob;
 import com.w1ll1x.ld22.gfx.Color;
@@ -59,8 +60,10 @@ public class Game extends Canvas implements Runnable {
 		player.findStartPos(level);
 
 		level.add(player);
-		for (int i = 0; i < 10; i++) {
-			level.add(new TestMob());
+		for (int i = 0; i < 1000; i++) {
+			Mob mob = new TestMob();
+			mob.findStartPos(level);
+			level.add(mob);
 		}
 
 		int pp = 0;

@@ -13,7 +13,7 @@ public class WaterTile extends Tile {
 
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(4, 4, 5, 5);
-		int transitionColor = Color.get(0, 4, 20, level.grassColor);
+		int transitionColor = Color.get(100, 4, 211, level.grassColor);
 
 		boolean u = level.getTile(x, y - 1) != this;
 		boolean d = level.getTile(x, y + 1) != this;

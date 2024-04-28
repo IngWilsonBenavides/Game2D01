@@ -116,16 +116,4 @@ public class Player extends Mob {
 		}
 	}
 
-	public void findStartPos(Level level) {
-		while (true) {
-			int x = random.nextInt(level.w);
-			int y = random.nextInt(level.h);
-			if (level.getTile(x, y).mayPass(level, x, y, this)) {
-				this.x = x * 16 + 8;
-				this.y = y * 16 + 8;
-				return;
-			}
-		}
-	}
-
 }

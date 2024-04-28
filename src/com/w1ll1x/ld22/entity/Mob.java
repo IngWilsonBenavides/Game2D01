@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.w1ll1x.ld22.entity.particle.TextParticle;
 import com.w1ll1x.ld22.gfx.Color;
+import com.w1ll1x.ld22.level.Level;
 
 public class Mob extends Entity {
 
@@ -99,7 +100,7 @@ public class Mob extends Entity {
 	}
 
 	public void hurt(Mob mob, int damage, int attackDir) {
-		level.add( new TextParticle("" + damage, x, y, Color.get(-1, 500, 500, 500) ) );
+		level.add(new TextParticle("" + damage, x, y, Color.get(-1, 500, 500, 500)));
 		health -= damage;
 		if (attackDir == 0)
 			yKnockback = +6;
@@ -111,4 +112,17 @@ public class Mob extends Entity {
 			xKnockback = +6;
 		hurtTime = 10;
 	}
+
+	public void findStartPos(Level level) {
+		while (true) {
+			int x = random.nextInt(level.w);
+			int y = random.nextInt(level.h);
+			if (level.getTile(x, y).mayPass(level, x, y, this)) {
+				this.x = x * 16 + 8;
+				this.y = y * 16 + 8;
+				return;
+			}
+		}
+	}
+
 }
