@@ -5,7 +5,6 @@ import java.util.List;
 import com.w1ll1x.ld22.InputHandler;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
-import com.w1ll1x.ld22.level.Level;
 
 public class Player extends Mob {
 

@@ -102,6 +102,19 @@ public class NoiseMap {
 				}
 			}
 		}
+		for (int i = 0; i < w * h / 1000; i++) {
+			int x = random.nextInt(w);
+			int y = random.nextInt(h);
+			for (int j = 0; j < 60; j++) {
+				int xx = x + random.nextInt(10) - random.nextInt(10);
+				int yy = y + random.nextInt(10) - random.nextInt(10);
+				if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
+					if (map[xx + yy * w] == Tile.grass.id) {
+						map[xx + yy * w] = Tile.flower.id;
+					}
+				}
+			}
+		}
 		return map;
 	}
 
@@ -109,7 +122,7 @@ public class NoiseMap {
 		for (int j = 0; j < 5; j++) {
 			int w = 128;
 			int h = 128;
-			
+
 			byte[] map = NoiseMap.getMap(w, h);
 
 			BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
@@ -118,9 +131,12 @@ public class NoiseMap {
 				for (int x = 0; x < w; x++) {
 					int i = x + y * w;
 
-					if (map[i] == Tile.water.id) pixels[i] = 0x000080;
-					if (map[i] == Tile.grass.id) pixels[i] = 0x208020;
-					if (map[i] == Tile.rock.id) pixels[i] = 0x404040;
+					if (map[i] == Tile.water.id)
+						pixels[i] = 0x000080;
+					if (map[i] == Tile.grass.id)
+						pixels[i] = 0x208020;
+					if (map[i] == Tile.rock.id)
+						pixels[i] = 0x404040;
 				}
 			}
 			img.setRGB(0, 0, w, h, pixels, 0, w);
