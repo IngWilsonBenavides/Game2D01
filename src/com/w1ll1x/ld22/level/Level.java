@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
 
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.gfx.Screen;
@@ -37,8 +36,9 @@ public class Level {
 	public Level(int w, int h) {
 		this.w = w;
 		this.h = h;
-		tiles = NoiseMap.getMap(w, h);
-		data = new byte[w * h];
+		byte[][] maps = NoiseMap.getMap(w, h);
+		tiles = maps[0];
+		data = maps[1];
 		entitiesInTiles = new ArrayList[w * h];
 		for (int i = 0; i < w * h; i++) {
 			entitiesInTiles[i] = new ArrayList<Entity>();
@@ -94,6 +94,25 @@ public class Level {
 		return Tile.tiles[tiles[x + y * w]];
 	}
 
+	public void setTile(int x, int y, Tile t, int dataVal) {
+		if (x < 0 || y < 0 || x >= w || y >= h)
+			return;
+		tiles[x + y * w] = t.id;
+		data[x + y * w] = (byte) dataVal;
+	}
+
+	public int getData(int x, int y) {
+		if (x < 0 || y < 0 || x >= w || y >= h)
+			return 0;
+		return data[x + y * w] & 0xff;
+	}
+
+	public void setData(int x, int y, int val) {
+		if (x < 0 || y < 0 || x >= w || y >= h)
+			return;
+		data[x + y * w] = (byte) val;
+	}
+
 	public void add(Entity entity) {
 		entities.add(entity);
 		entity.init(this);
@@ -135,7 +154,7 @@ public class Level {
 
 	public List<Entity> getEntities(int x0, int y0, int x1, int y1) {
 		List<Entity> result = new ArrayList<Entity>();
-		
+
 		int xt0 = (x0 >> 4) - 1;
 		int yt0 = (y0 >> 4) - 1;
 		int xt1 = (x1 >> 4) + 1;
@@ -154,4 +173,5 @@ public class Level {
 		}
 		return result;
 	}
+
 }
