@@ -96,7 +96,7 @@ public class NoiseMap {
 
 				if (val < 0) {
 					map[i] = Tile.water.id;
-				} else if (val > 2) {
+				} else if (val > 1) {
 					map[i] = Tile.rock.id;
 				} else {
 					map[i] = Tile.grass.id;

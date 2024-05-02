@@ -60,21 +60,24 @@ public class Player extends Mob {
 		if (dir == 2) {
 			hurt(x - 12, y - 8, x - 4, y + 8);
 		}
+
+		int xt = x >> 4;
+		int yt = y >> 4;
+		if (attackDir == 0)
+			yt = (y + 8) >> 4;
+		if (attackDir == 1)
+			yt = (y - 8) >> 4;
+		if (attackDir == 2)
+			xt = (x - 8) >> 4;
+		if (attackDir == 3)
+			xt = (x + 8) >> 4;
+
+		if (xt >= 0 && yt >= 0 && xt < level.w && yt < level.h) {
+			level.getTile(xt, yt).hurt(level, xt, yt, this, random.nextInt(4) + 1, attackDir);
+		}
 	}
 
 	private void hurt(int x0, int y0, int x1, int y1) {
-		int xt0 = x0 >> 4;
-		int yt0 = y0 >> 4;
-		int xt1 = x1 >> 4;
-		int yt1 = y1 >> 4;
-
-		for (int y = yt0; y <= yt1; y++) {
-			for (int x = xt0; x <= xt1; x++) {
-				if (x >= 0 && y >= 0 && x < level.w && y < level.h) {
-					level.getTile(x, y).hurt(level, x, y, this, random.nextInt(4) + 1, attackDir);
-				}
-			}
-		}
 
 		List<Entity> entities = level.getEntities(x0, y0, x1, y1);
 		for (int i = 0; i < entities.size(); i++) {

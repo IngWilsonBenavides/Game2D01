@@ -20,9 +20,9 @@ public class TextParticle extends Entity {
 		xx = x;
 		yy = y;
 		zz = 8;
-		xa = random.nextGaussian() * 0.1;
-		ya = random.nextGaussian() * 0.1;
-		za = random.nextFloat() + 1;
+		xa = random.nextGaussian() * 0.3;
+		ya = random.nextGaussian() * 0.15;
+		za = random.nextFloat() * 0.7 + 1;
 	}
 
 	public void tick() {
@@ -39,12 +39,13 @@ public class TextParticle extends Entity {
 			xa *= 0.6;
 			ya *= 0.6;
 		}
-		za -= 0.1;
+		za -= 0.15;
 		x = (int) xx;
 		y = (int) yy;
 	}
 	
 	public void render(Screen screen) {
+		Font.draw(msg, screen, x - msg.length() * 4, y, Color.get(-1, 0, 0, 0));
 		Font.draw(msg, screen, x - msg.length() * 4 + 1, y - (int)(zz) + 1, Color.get(-1, 0, 0, 0));
 		Font.draw(msg, screen, x - msg.length() * 4, y - (int)(zz), col);
 	}
