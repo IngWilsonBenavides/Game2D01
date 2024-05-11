@@ -61,16 +61,19 @@ public class Player extends Mob {
 			hurt(x - 12, y - 8, x - 4, y + 8);
 		}
 
+		int yo = -2;
 		int xt = x >> 4;
-		int yt = y >> 4;
+		int yt = (y + yo) >> 4;
+		int r = 12;
+
 		if (attackDir == 0)
-			yt = (y + 8) >> 4;
+			yt = (y + r + yo) >> 4;
 		if (attackDir == 1)
-			yt = (y - 8) >> 4;
+			yt = (y - r + yo) >> 4;
 		if (attackDir == 2)
-			xt = (x - 8) >> 4;
+			xt = (x - r) >> 4;
 		if (attackDir == 3)
-			xt = (x + 8) >> 4;
+			xt = (x + r) >> 4;
 
 		if (xt >= 0 && yt >= 0 && xt < level.w && yt < level.h) {
 			level.getTile(xt, yt).hurt(level, xt, yt, this, random.nextInt(4) + 1, attackDir);
