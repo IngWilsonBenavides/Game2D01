@@ -103,6 +103,21 @@ public class NoiseMap {
 				}
 			}
 		}
+		
+		for (int i = 0; i < w * h / 400; i++) {
+			int x = random.nextInt(w);
+			int y = random.nextInt(h);
+			for (int j = 0; j < 200; j++) {
+				int xx = x + random.nextInt(15) - random.nextInt(15);
+				int yy = y + random.nextInt(15) - random.nextInt(15);
+				if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
+					if (map[xx + yy * w] == Tile.grass.id) {
+						map[xx + yy * w] = Tile.tree.id;
+					}
+				}
+			}
+		}
+		
 		for (int i = 0; i < w * h / 400; i++) {
 			int x = random.nextInt(w);
 			int y = random.nextInt(h);

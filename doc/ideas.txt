@@ -13,3 +13,5 @@ low resolution
 4 colors per block of 8x8 pixels
 
 investigar sobre  Perlin Noise
+
+probar que los arboles asi como las piedras se pueden destruir
