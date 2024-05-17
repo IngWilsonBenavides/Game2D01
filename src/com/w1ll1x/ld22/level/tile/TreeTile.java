@@ -1,10 +1,13 @@
 package com.w1ll1x.ld22.level.tile;
 
 import com.w1ll1x.ld22.entity.Entity;
+import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.entity.Mob;
 import com.w1ll1x.ld22.entity.particle.TextParticle;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Resource;
+import com.w1ll1x.ld22.item.ResourceItem;
 import com.w1ll1x.ld22.level.Level;
 
 public class TreeTile extends Tile {
@@ -57,6 +60,7 @@ public class TreeTile extends Tile {
 		int damage = level.getData(x, y) + dmg;
 		level.add(new TextParticle("" + dmg, x * 16 + 8, y * 16 + 8, Color.get(-1, 500, 500, 500)));
 		if (damage > 32) {
+			level.add(new ItemEntity(new ResourceItem(Resource.wood), x * 16 + 8, y * 16 + 8));
 			level.setTile(x, y, Tile.grass, 0);
 		} else {
 			level.setData(x, y, damage);

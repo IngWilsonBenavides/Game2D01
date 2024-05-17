@@ -1,7 +1,5 @@
 package com.w1ll1x.ld22.entity;
 
-import java.util.List;
-
 import com.w1ll1x.ld22.entity.particle.TextParticle;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.level.Level;
@@ -57,45 +55,11 @@ public class Mob extends Entity {
 				dir = 1;
 			if (ya > 0)
 				dir = 0;
-			boolean stopped = true;
-			if (xa != 0 && move2(xa, 0))
-				stopped = false;
-			if (ya != 0 && move2(0, ya))
-				stopped = false;
-			return !stopped;
 		}
-		return true;
+		return super.move(xa, ya);
 	}
 
-	private boolean move2(int xa, int ya) {
-		if (xa != 0 && ya != 0)
-			throw new IllegalArgumentException("Move2 can only move along one axis at a time!");
-		for (int c = 0; c < 4; c++) {
-			int xt = ((x + xa) + (c % 2 * 2 - 1) * xr) >> 4;
-			int yt = ((y + ya) + (c / 2 * 2 - 1) * yr) >> 4;
-			if (!level.getTile(xt, yt).mayPass(level, xt, yt, this)) {
-				return false;
-			}
-		}
-
-		List<Entity> wasInside = level.getEntities(x - xr, y - yr, x + xr, y + yr);
-		List<Entity> isInside = level.getEntities(x + xa - xr, y + ya - yr, x + xa + xr, y + ya + yr);
-		isInside.removeAll(wasInside);
-		for (int i = 0; i < isInside.size(); i++) {
-			Entity e = isInside.get(i);
-			if (e == this)
-				continue;
-			if (e.blocks(this)) {
-				return false;
-			}
-		}
-
-		x += xa;
-		y += ya;
-		return true;
-	}
-
-	public boolean blocks(Mob mob) {
+	public boolean blocks(Entity e) {
 		return true;
 	}
 
