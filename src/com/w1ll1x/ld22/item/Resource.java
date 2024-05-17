@@ -4,7 +4,7 @@ import com.w1ll1x.ld22.gfx.Color;
 
 public class Resource {
 
-	public static Resource wood = new Resource("Wood", 1 + 4 * 32, Color.get(-1, 200, 511, 400));
+	public static Resource wood = new Resource("Wood", 1 + 4 * 32, Color.get(-1, 200, 531, 430));
 
 	public final String name;
 	public final int sprite;

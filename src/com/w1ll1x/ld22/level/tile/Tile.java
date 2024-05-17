@@ -1,17 +1,20 @@
 package com.w1ll1x.ld22.level.tile;
 
+import java.util.Random;
+
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.Mob;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.level.Level;
 
 public class Tile {
+	protected Random random = new Random();
 	public static Tile[] tiles = new Tile[256];
 	public static Tile grass = new GrassTile(0);
 	public static Tile rock = new RockTile(1);
 	public static Tile water = new WaterTile(2);
 	public static Tile flower = new FlowerTile(3);
-	public static Tile tree = new TreeTile(3);
+	public static Tile tree = new TreeTile(4);
 
 	public final byte id;
 
