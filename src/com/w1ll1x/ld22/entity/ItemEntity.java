@@ -13,13 +13,14 @@ public class ItemEntity extends Entity {
 	public double xa, ya, za;
 	public double xx, yy, zz;
 	private Item item;
+	private int time = 0;
 
 	public ItemEntity(Item item, int x, int y) {
 		this.item = item;
 		xx = this.x = x;
 		yy = this.y = y;
-		xr = 4;
-		yr = 3;
+		xr = 2;
+		yr = 2;
 
 		zz = 2;
 		xa = random.nextGaussian() * 0.3;
@@ -28,6 +29,7 @@ public class ItemEntity extends Entity {
 	}
 
 	public void tick() {
+		time++;
 		xx += xa;
 		yy += ya;
 		zz += za;
@@ -55,4 +57,14 @@ public class ItemEntity extends Entity {
 		screen.render(x - 4, y - 4 - (int) (zz), item.getSprite(), item.getColor(), 0);
 	}
 
+	protected void touchedBy(Entity entity) {
+		if (time > 30) {
+			entity.touchItem(this);
+		}
+	}
+
+	public void take() {
+		item.onTake(this);
+		remove();
+	}
 }

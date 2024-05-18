@@ -135,4 +135,7 @@ public class Player extends Mob {
 		}
 	}
 
+	public void touchItem(ItemEntity itemEntity) {
+		itemEntity.take();
+	}
 }
