@@ -1,8 +1,11 @@
 package com.w1ll1x.ld22.level.tile;
 
+import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.entity.Mob;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Resource;
+import com.w1ll1x.ld22.item.ResourceItem;
 import com.w1ll1x.ld22.level.Level;
 
 public class FlowerTile extends GrassTile {
@@ -39,6 +42,7 @@ public class FlowerTile extends GrassTile {
 	}
 	
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
+		level.add(new ItemEntity(new ResourceItem(Resource.flower), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
 		level.setTile(x, y, Tile.grass, 0);
 	}
 

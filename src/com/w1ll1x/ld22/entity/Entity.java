@@ -81,4 +81,8 @@ public class Entity {
 		return true;
 	}
 
+	public boolean isBlockableBy(Mob mob) {
+		return true;
+	}
+
 }

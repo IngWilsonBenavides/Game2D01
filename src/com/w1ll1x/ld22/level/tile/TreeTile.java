@@ -60,7 +60,8 @@ public class TreeTile extends Tile {
 		int damage = level.getData(x, y) + dmg;
 		level.add(new TextParticle("" + dmg, x * 16 + 8, y * 16 + 8, Color.get(-1, 500, 500, 500)));
 		if (damage > 0) {
-			for (int i = 0; i < 4; i++) {
+			int count = random.nextInt(4) + 1;
+			for (int i = 0; i < count; i++) {
 				level.add(new ItemEntity(new ResourceItem(Resource.wood), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
 			}
 			level.setTile(x, y, Tile.grass, 0);

@@ -27,39 +27,6 @@ public class ItemEntity extends Entity {
 		za = random.nextFloat() * 0.7 + 1;
 	}
 
-	public boolean move(int xa, int ya) {
-		if (xKnockback < 0) {
-			move2(-1, 0);
-			xKnockback++;
-		}
-		if (xKnockback > 0) {
-			move2(1, 0);
-			xKnockback--;
-		}
-		if (yKnockback < 0) {
-			move2(0, -1);
-			yKnockback++;
-		}
-		if (yKnockback > 0) {
-			move2(0, 1);
-			yKnockback--;
-		}
-		if (hurtTime > 0)
-			return true;
-		if (xa != 0 || ya != 0) {
-			walkDist++;
-			if (xa < 0)
-				dir = 2;
-			if (xa > 0)
-				dir = 3;
-			if (ya < 0)
-				dir = 1;
-			if (ya > 0)
-				dir = 0;
-		}
-		return super.move(xa, ya);
-	}
-
 	public void tick() {
 		xx += xa;
 		yy += ya;
@@ -78,28 +45,14 @@ public class ItemEntity extends Entity {
 		if (hurtTime > 0)
 			hurtTime--;
 	}
-
-	public void render(Screen screen) {
-
-		int col = item.getColor();
-		if (hurtTime > 0) {
-			col = Color.get(-1, 555, 555, 555);
-		}
-
-		screen.render(x - 4, y - 4, item.getSprite(), Color.get(-1, 0, 0, 0), 0);
-		screen.render(x - 4, y - 4 - (int) (zz), item.getSprite(), col, 0);
+	
+	public boolean isBlockableBy(Mob mob) {
+		return false;
 	}
 
-	public void hurt(Mob mob, int damage, int attackDir) {
-		if (attackDir == 0)
-			yKnockback = +6;
-		if (attackDir == 1)
-			yKnockback = -6;
-		if (attackDir == 2)
-			xKnockback = -6;
-		if (attackDir == 3)
-			xKnockback = +6;
-		hurtTime = 10;
+	public void render(Screen screen) {
+		screen.render(x - 4, y - 4, item.getSprite(), Color.get(-1, 0, 0, 0), 0);
+		screen.render(x - 4, y - 4 - (int) (zz), item.getSprite(), item.getColor(), 0);
 	}
 
 }

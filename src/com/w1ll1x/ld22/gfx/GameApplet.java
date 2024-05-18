@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 
 import com.w1ll1x.ld22.Game;
 
+@SuppressWarnings("removal")
 public class GameApplet extends Applet {
 	private static final long serialVersionUID = 1L;
 
