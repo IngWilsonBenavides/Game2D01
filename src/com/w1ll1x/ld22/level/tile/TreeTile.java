@@ -14,6 +14,7 @@ public class TreeTile extends Tile {
 
 	public TreeTile(int id) {
 		super(id);
+		connectsToGrass = true;
 	}
 
 	public void render(Screen screen, Level level, int x, int y) {

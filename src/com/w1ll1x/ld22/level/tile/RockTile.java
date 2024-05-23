@@ -18,7 +18,7 @@ public class RockTile extends Tile {
 
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(444, 444, 333, 333);
-		int transitionColor = Color.get(111, 444, 555, level.grassColor);
+		int transitionColor = Color.get(111, 444, 555, level.dirtColor);
 
 		boolean u = level.getTile(x, y - 1) != this;
 		boolean d = level.getTile(x, y + 1) != this;
@@ -78,9 +78,10 @@ public class RockTile extends Tile {
 		if (damage > 32) {
 			int count = random.nextInt(4) + 1;
 			for (int i = 0; i < count; i++) {
-				level.add(new ItemEntity(new ResourceItem(Resource.stone), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
+				level.add(new ItemEntity(new ResourceItem(Resource.stone), x * 16 + random.nextInt(10) + 3,
+						y * 16 + random.nextInt(10) + 3));
 			}
-			level.setTile(x, y, Tile.grass, 0);
+			level.setTile(x, y, Tile.dirt, 0);
 		} else {
 			level.setData(x, y, damage);
 		}

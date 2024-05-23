@@ -4,22 +4,21 @@ import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.level.Level;
 
-public class GrassTile extends Tile {
+public class SandTile extends Tile {
 
-	public GrassTile(int id) {
+	public SandTile(int id) {
 		super(id);
-		connectsToGrass = true;
+		connectsToSand = true;
 	}
 
 	public void render(Screen screen, Level level, int x, int y) {
-		int col = Color.get(level.grassColor, level.grassColor, level.grassColor + 111, level.grassColor + 111);
-		int transitionColor = Color.get(level.grassColor - 111, level.grassColor, level.grassColor + 111,
-				level.dirtColor);
+		int col = Color.get(level.sandColor, level.sandColor, level.sandColor - 110, level.sandColor - 110);
+		int transitionColor = Color.get(level.sandColor - 110, level.sandColor, level.sandColor - 110, level.dirtColor);
 
-		boolean u = !level.getTile(x, y - 1).connectsToGrass;
-		boolean d = !level.getTile(x, y + 1).connectsToGrass;
-		boolean l = !level.getTile(x - 1, y).connectsToGrass;
-		boolean r = !level.getTile(x + 1, y).connectsToGrass;
+		boolean u = !level.getTile(x, y - 1).connectsToSand;
+		boolean d = !level.getTile(x, y + 1).connectsToSand;
+		boolean l = !level.getTile(x - 1, y).connectsToSand;
+		boolean r = !level.getTile(x + 1, y).connectsToSand;
 
 		if (!u && !l) {
 			screen.render(x * 16 + 0, y * 16 + 0, 0, col, 0);

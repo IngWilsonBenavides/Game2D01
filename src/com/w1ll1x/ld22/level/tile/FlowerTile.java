@@ -13,6 +13,7 @@ public class FlowerTile extends GrassTile {
 	public FlowerTile(int id) {
 		super(id);
 		tiles[id] = this;
+		connectsToGrass = true;
 	}
 
 	public void render(Screen screen, Level level, int x, int y) {

@@ -18,6 +18,8 @@ public class Level {
 	public List<Entity>[] entitiesInTiles;
 
 	public int grassColor = 141;
+	public int dirtColor = 322;
+	public int sandColor = 550;
 
 	public List<Entity> entities = new ArrayList<Entity>();
 	private Comparator<Entity> spriteSorter = new Comparator<Entity>() {
