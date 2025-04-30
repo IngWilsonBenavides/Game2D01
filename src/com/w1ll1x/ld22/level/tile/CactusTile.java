@@ -32,7 +32,7 @@ public class CactusTile extends Tile {
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		int damage = level.getData(x, y) + dmg;
 		level.add(new TextParticle("" + dmg, x * 16 + 8, y * 16 + 8, Color.get(-1, 500, 500, 500)));
-		if (damage > 10) {
+		if (damage >= 10) {
 			int count = random.nextInt(4) + 1;
 			for (int i = 0; i < count; i++) {
 				level.add(new ItemEntity(new ResourceItem(Resource.stone), x * 16 + random.nextInt(10) + 3,
@@ -42,5 +42,9 @@ public class CactusTile extends Tile {
 		} else {
 			level.setData(x, y, damage);
 		}
+	}
+	
+	public void bumpedInto(Level level, int x, int y, Entity entity) {
+		entity.hurt(this, x, y, 1);
 	}
 }

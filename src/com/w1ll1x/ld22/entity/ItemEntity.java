@@ -19,8 +19,8 @@ public class ItemEntity extends Entity {
 		this.item = item;
 		xx = this.x = x;
 		yy = this.y = y;
-		xr = 2;
-		yr = 2;
+		xr = 3;
+		yr = 3;
 
 		zz = 2;
 		xa = random.nextGaussian() * 0.3;

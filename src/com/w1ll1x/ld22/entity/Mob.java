@@ -3,6 +3,7 @@ package com.w1ll1x.ld22.entity;
 import com.w1ll1x.ld22.entity.particle.TextParticle;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.level.Level;
+import com.w1ll1x.ld22.level.tile.Tile;
 
 public class Mob extends Entity {
 
@@ -62,8 +63,17 @@ public class Mob extends Entity {
 	public boolean blocks(Entity e) {
 		return e.isBlockableBy(this);
 	}
+	
+	public void hurt(Tile tile, int x, int y, int damage) {
+		int attackDir = dir ^ 1;
+		doHurt(damage, attackDir);
+	}
 
 	public void hurt(Mob mob, int damage, int attackDir) {
+		doHurt(damage, attackDir);
+	}
+	
+	protected void doHurt(int damage, int attackDir) {
 		level.add(new TextParticle("" + damage, x, y, Color.get(-1, 500, 500, 500)));
 		health -= damage;
 		if (attackDir == 0)

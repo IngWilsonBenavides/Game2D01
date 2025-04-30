@@ -60,7 +60,7 @@ public class TreeTile extends Tile {
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
 		int damage = level.getData(x, y) + dmg;
 		level.add(new TextParticle("" + dmg, x * 16 + 8, y * 16 + 8, Color.get(-1, 500, 500, 500)));
-		if (damage > 0) {
+		if (damage >= 15) {
 			int count = random.nextInt(4) + 1;
 			for (int i = 0; i < count; i++) {
 				level.add(new ItemEntity(new ResourceItem(Resource.wood), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
