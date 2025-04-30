@@ -6,6 +6,7 @@ import com.w1ll1x.ld22.item.Item;
 
 public class ItemEntity extends Entity {
 
+	private int lifeTime;
 	protected int walkDist = 0;
 	protected int dir = 0;
 	public int hurtTime = 0;
@@ -26,10 +27,16 @@ public class ItemEntity extends Entity {
 		xa = random.nextGaussian() * 0.3;
 		ya = random.nextGaussian() * 0.2;
 		za = random.nextFloat() * 0.7 + 1;
+		
+		lifeTime = 60 * 10 + random.nextInt(60);
 	}
 
 	public void tick() {
 		time++;
+		if (time >= lifeTime) {
+			remove();
+			return;
+		}
 		xx += xa;
 		yy += ya;
 		zz += za;
@@ -47,12 +54,16 @@ public class ItemEntity extends Entity {
 		if (hurtTime > 0)
 			hurtTime--;
 	}
-	
+
 	public boolean isBlockableBy(Mob mob) {
 		return false;
 	}
 
 	public void render(Screen screen) {
+		if (time >= lifeTime - 6 * 20) {
+			if (time / 6 % 2 == 0)
+				return;
+		}
 		screen.render(x - 4, y - 4, item.getSprite(), Color.get(-1, 0, 0, 0), 0);
 		screen.render(x - 4, y - 4 - (int) (zz), item.getSprite(), item.getColor(), 0);
 	}

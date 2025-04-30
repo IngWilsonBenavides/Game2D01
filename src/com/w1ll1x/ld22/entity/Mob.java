@@ -63,7 +63,7 @@ public class Mob extends Entity {
 	public boolean blocks(Entity e) {
 		return e.isBlockableBy(this);
 	}
-	
+
 	public void hurt(Tile tile, int x, int y, int damage) {
 		int attackDir = dir ^ 1;
 		doHurt(damage, attackDir);
@@ -72,8 +72,10 @@ public class Mob extends Entity {
 	public void hurt(Mob mob, int damage, int attackDir) {
 		doHurt(damage, attackDir);
 	}
-	
+
 	protected void doHurt(int damage, int attackDir) {
+		if (hurtTime > 0)
+			return;
 		level.add(new TextParticle("" + damage, x, y, Color.get(-1, 500, 500, 500)));
 		health -= damage;
 		if (attackDir == 0)
