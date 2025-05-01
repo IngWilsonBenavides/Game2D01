@@ -12,6 +12,7 @@ public class Mob extends Entity {
 	public int hurtTime = 0;
 	protected int xKnockback, yKnockback;
 	public int health = 10;
+	public int swimTimer = 0;
 
 	public Mob() {
 		x = y = 8;
@@ -28,6 +29,10 @@ public class Mob extends Entity {
 	}
 
 	public boolean move(int xa, int ya) {
+		if (inWater()) {
+			if (swimTimer++ / 4 % 3 == 0)
+				return true;
+		}
 		if (xKnockback < 0) {
 			move2(-1, 0);
 			xKnockback++;
@@ -58,6 +63,10 @@ public class Mob extends Entity {
 				dir = 0;
 		}
 		return super.move(xa, ya);
+	}
+
+	protected boolean inWater() {
+		return level.getTile(x >> 4, y >> 4) == Tile.water;
 	}
 
 	public boolean blocks(Entity e) {

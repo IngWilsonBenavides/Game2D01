@@ -22,23 +22,20 @@ public class SandTile extends Tile {
 
 		if (!u && !l) {
 			screen.render(x * 16 + 0, y * 16 + 0, 0, col, 0);
-		} else {
+		} else
 			screen.render(x * 16 + 0, y * 16 + 0, (l ? 11 : 12) + (u ? 0 : 1) * 32, transitionColor, 0);
-		}
 		if (!u && !r) {
 			screen.render(x * 16 + 8, y * 16 + 0, 1, col, 0);
-		} else {
+		} else
 			screen.render(x * 16 + 8, y * 16 + 0, (r ? 13 : 12) + (u ? 0 : 1) * 32, transitionColor, 0);
-		}
 		if (!d && !l) {
 			screen.render(x * 16 + 0, y * 16 + 8, 2, col, 0);
-		} else {
+		} else
 			screen.render(x * 16 + 0, y * 16 + 8, (l ? 11 : 12) + (d ? 2 : 1) * 32, transitionColor, 0);
-		}
 		if (!d && !r) {
 			screen.render(x * 16 + 8, y * 16 + 8, 3, col, 0);
-		} else {
+		} else 
 			screen.render(x * 16 + 8, y * 16 + 8, (r ? 13 : 12) + (d ? 2 : 1) * 32, transitionColor, 0);
-		}
+		
 	}
 }

@@ -112,4 +112,8 @@ public class Entity {
 	public void touchItem(ItemEntity itemEntity) {
 	}
 
+	public boolean canSwim() {
+		return false;
+	}
+
 }
