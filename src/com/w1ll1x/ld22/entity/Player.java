@@ -168,6 +168,7 @@ public class Player extends Mob {
 				this.x = x * 16 + 8;
 				this.y = y * 16 + 8;
 				level.add(new Anvil(this.x - 16, this.y));
+				level.add(new Chest(this.x + 16, this.y));
 				return;
 			}
 		}

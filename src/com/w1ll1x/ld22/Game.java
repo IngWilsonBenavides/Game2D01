@@ -195,7 +195,7 @@ public class Game extends Canvas implements Runnable {
 			if (i < player.health)
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 200, 500, 533), 0);
 			else
-				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 000, 000, 000), 0);
+				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 100, 000, 000), 0);
 		}
 	}
 
