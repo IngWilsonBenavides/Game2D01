@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.gfx.Screen;
@@ -11,6 +12,7 @@ import com.w1ll1x.ld22.level.levelgen.NoiseMap;
 import com.w1ll1x.ld22.level.tile.Tile;
 
 public class Level {
+	private Random random = new Random();
 	public int w, h;
 
 	public byte[] tiles;
@@ -134,6 +136,11 @@ public class Level {
 	}
 
 	public void tick() {
+		for (int i = 0; i < w * h / 100; i++) {
+			int xt = random.nextInt(w);
+			int yt = random.nextInt(w);
+			getTile(xt, yt).tick(this, xt, yt);
+		}
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			int xto = e.x >> 4;

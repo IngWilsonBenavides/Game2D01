@@ -4,6 +4,7 @@ import com.w1ll1x.ld22.entity.ItemEntity;
 
 public class ResourceItem extends Item {
 	public Resource resource;
+	public int count = 1;
 
 	public ResourceItem(Resource resource) {
 		this.resource = resource;

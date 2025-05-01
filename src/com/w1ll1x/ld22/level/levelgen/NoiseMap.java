@@ -59,7 +59,7 @@ public class NoiseMap {
 				}
 			}
 			stepSize /= 2;
-			scale *= (scaleMod + 1);
+			scale *= (scaleMod + 0.8);
 			scaleMod *= 0.3;
 		} while (stepSize > 1);
 	}
@@ -88,7 +88,7 @@ public class NoiseMap {
 
 				double val = Math.abs(noise1.values[i] + noise2.values[i]) * 3 - 2;
 				double mval = Math.abs(mnoise1.values[i] + mnoise2.values[i]);
-				mval = Math.abs(mval - mnoise2.values[i]) * 3 - 2;
+				mval = Math.abs(mval - mnoise3.values[i]) * 3 - 2;
 
 				double xd = x / (w - 1.0) * 2 - 1;
 				double yd = y / (h - 1.0) * 2 - 1;
@@ -111,17 +111,21 @@ public class NoiseMap {
 			}
 		}
 
-		for (int i = 0; i < w * h / 400; i++) {
-			int x = random.nextInt(w);
-			int y = random.nextInt(h);
-			for (int j = 0; j < 200; j++) {
-				int xo = x + random.nextInt(8) - random.nextInt(8);
-				int yo = y + random.nextInt(8) - random.nextInt(8);
-				for (int yy = yo - 1; yy <= yo + 1; yy++) {
-					for (int xx = xo - 1; xx <= xo + 1; xx++) {
-						if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
-							if (map[xx + yy * w] == Tile.grass.id) {
-								map[xx + yy * w] = Tile.sand.id;
+		for (int i = 0; i < w * h / 2800; i++) {
+			int xs = random.nextInt(w);
+			int ys = random.nextInt(h);
+			for (int k = 0; k < 10; k++) {
+				int x = xs + random.nextInt(21) - 10;
+				int y = ys + random.nextInt(21) - 10;
+				for (int j = 0; j < 100; j++) {
+					int xo = x + random.nextInt(5) - random.nextInt(5);
+					int yo = y + random.nextInt(5) - random.nextInt(5);
+					for (int yy = yo - 1; yy <= yo + 1; yy++) {
+						for (int xx = xo - 1; xx <= xo + 1; xx++) {
+							if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
+								if (map[xx + yy * w] == Tile.grass.id) {
+									map[xx + yy * w] = Tile.sand.id;
+								}
 							}
 						}
 					}
@@ -129,17 +133,21 @@ public class NoiseMap {
 			}
 		}
 
-		for (int i = 0; i < w * h / 400; i++) {
-			int x = random.nextInt(w);
-			int y = random.nextInt(h);
-			for (int j = 0; j < 200; j++) {
-				int xo = x + random.nextInt(8) - random.nextInt(8);
-				int yo = y + random.nextInt(8) - random.nextInt(8);
-				for (int yy = yo - 1; yy <= yo + 1; yy++) {
-					for (int xx = xo - 1; xx <= xo + 1; xx++) {
-						if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
-							if (map[xx + yy * w] == Tile.grass.id) {
-								map[xx + yy * w] = Tile.dirt.id;
+		for (int i = 0; i < w * h / 2800; i++) {
+			int xs = random.nextInt(w);
+			int ys = random.nextInt(h);
+			for (int k = 0; k < 10; k++) {
+				int x = xs + random.nextInt(21) - 10;
+				int y = ys + random.nextInt(21) - 10;
+				for (int j = 0; j < 100; j++) {
+					int xo = x + random.nextInt(5) - random.nextInt(5);
+					int yo = y + random.nextInt(5) - random.nextInt(5);
+					for (int yy = yo - 1; yy <= yo + 1; yy++) {
+						for (int xx = xo - 1; xx <= xo + 1; xx++) {
+							if (xx >= 0 && yy >= 0 && xx < w && yy < h) {
+								if (map[xx + yy * w] == Tile.grass.id) {
+									map[xx + yy * w] = Tile.dirt.id;
+								}
 							}
 						}
 					}
@@ -207,14 +215,17 @@ public class NoiseMap {
 					if (map[i] == Tile.grass.id)
 						pixels[i] = 0x208020;
 					if (map[i] == Tile.rock.id)
-						pixels[i] = 0x404040;
+						pixels[i] = 0xa0a0a0;
 					if (map[i] == Tile.dirt.id)
-						pixels[i] = 0x602020;
+						pixels[i] = 0x604040;
+					if (map[i] == Tile.sand.id)
+						pixels[i] = 0xa0a040;
+					if (map[i] == Tile.tree.id)
+						pixels[i] = 0x003000;
 				}
 			}
 			img.setRGB(0, 0, w, h, pixels, 0, w);
-			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION,
-					new ImageIcon(img.getScaledInstance(w * 4, h * 4, Image.SCALE_AREA_AVERAGING)));
+			JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(w * 4, h * 4, Image.SCALE_AREA_AVERAGING)));
 		}
 	}
 }

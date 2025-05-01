@@ -41,4 +41,8 @@ public class Tile {
 
 	public void bumpedInto(Level level, int xt, int yt, Entity entity) {
 	}
+
+	public void tick(Level level, int xt, int yt) {
+		
+	}
 }

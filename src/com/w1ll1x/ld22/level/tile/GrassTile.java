@@ -13,8 +13,7 @@ public class GrassTile extends Tile {
 
 	public void render(Screen screen, Level level, int x, int y) {
 		int col = Color.get(level.grassColor, level.grassColor, level.grassColor + 111, level.grassColor + 111);
-		int transitionColor = Color.get(level.grassColor - 111, level.grassColor, level.grassColor + 111,
-				level.dirtColor);
+		int transitionColor = Color.get(level.grassColor - 111, level.grassColor, level.grassColor + 111, level.dirtColor);
 
 		boolean u = !level.getTile(x, y - 1).connectsToGrass;
 		boolean d = !level.getTile(x, y + 1).connectsToGrass;
@@ -40,6 +39,20 @@ public class GrassTile extends Tile {
 			screen.render(x * 16 + 8, y * 16 + 8, 3, col, 0);
 		} else {
 			screen.render(x * 16 + 8, y * 16 + 8, (r ? 13 : 12) + (d ? 2 : 1) * 32, transitionColor, 0);
+		}
+	}
+
+	public void tick(Level level, int xt, int yt) {
+		int xn = xt;
+		int yn = yt;
+
+		if (random.nextBoolean())
+			xn += random.nextInt(2) * 2 - 1;
+		else 
+			yn += random.nextInt(2) * 2 - 1;
+		
+		if (level.getTile(xn, yn) == Tile.dirt) {
+			level.setTile(xn, yn, this, 0);
 		}
 	}
 }

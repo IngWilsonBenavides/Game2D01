@@ -13,7 +13,7 @@ public class ItemEntity extends Entity {
 	protected int xKnockback, yKnockback;
 	public double xa, ya, za;
 	public double xx, yy, zz;
-	private Item item;
+	protected Item item;
 	private int time = 0;
 
 	public ItemEntity(Item item, int x, int y) {

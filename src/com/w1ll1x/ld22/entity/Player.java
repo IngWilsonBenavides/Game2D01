@@ -13,6 +13,8 @@ public class Player extends Mob {
 	private InputHandler input;
 	private boolean wasAttacking;
 	private int attackTime, attackDir;
+	
+	public Inventory inventory = new Inventory();
 
 	public Player(InputHandler input) {
 		this.input = input;
@@ -154,6 +156,7 @@ public class Player extends Mob {
 
 	public void touchItem(ItemEntity itemEntity) {
 		itemEntity.take();
+		inventory.add(itemEntity.item);
 	}
 	
 	public boolean canSwim() {
