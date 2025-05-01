@@ -83,8 +83,7 @@ public class Game extends Canvas implements Runnable {
 			}
 		}
 		try {
-			screen = new Screen(WIDTH, HEIGHT,
-					new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons2.png"))));
+			screen = new Screen(WIDTH, HEIGHT, new SpriteSheet(ImageIO.read(Game.class.getResourceAsStream("/icons2.png"))));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -150,7 +149,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		int xScroll = player.x - screen.w / 2;
-		int yScroll = player.y - screen.h / 2;
+		int yScroll = player.y - (screen.h - 8) / 2;
 		if (xScroll < 0)
 			xScroll = 0;
 		if (yScroll < 0)
@@ -192,7 +191,7 @@ public class Game extends Canvas implements Runnable {
 				screen.render(x * 8, screen.h - 16 + y * 8, 0 + 12 * 32, Color.get(333, 333, 333, 333), 0);
 			}
 		}
-			for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 10; i++) {
 			if (i < player.health)
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 200, 500, 533), 0);
 			else

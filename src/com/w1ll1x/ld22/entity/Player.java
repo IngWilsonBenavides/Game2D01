@@ -5,6 +5,8 @@ import java.util.List;
 import com.w1ll1x.ld22.InputHandler;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.level.Level;
+import com.w1ll1x.ld22.level.tile.Tile;
 
 public class Player extends Mob {
 
@@ -111,8 +113,14 @@ public class Player extends Mob {
 
 		int xo = x - 8;
 		int yo = y - 11;
-		if (!inWater()) {
+		if (inWater()) {
 			yo += 4;
+			int waterColor = Color.get(-1, -1, 115, 335);
+			if (tickTime / 8 % 2 == 0) {
+				waterColor = Color.get(-1, 335, 5, 115);
+			}
+			screen.render(xo + 0, yo + 3, 5 + 13 * 32, waterColor, 0);
+			screen.render(xo + 8, yo + 3, 5 + 13 * 32, waterColor, 1);
 		}
 
 		if (attackTime > 0 && attackDir == 1) {
@@ -129,7 +137,7 @@ public class Player extends Mob {
 		if (!inWater()) {
 			screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, col, flip2);
 			screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2);
-		}
+		} 
 		if (attackTime > 0 && attackDir == 2) {
 			screen.render(xo - 4, yo, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 1);
 			screen.render(xo - 4, yo + 8, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
@@ -151,4 +159,18 @@ public class Player extends Mob {
 	public boolean canSwim() {
 		return true;
 	}
+	
+	public void findStartPos(Level level) {
+		while (true) {
+			int x = random.nextInt(level.w);
+			int y = random.nextInt(level.h);
+			if (level.getTile(x, y) == Tile.grass && level.getTile(x - 1, y) == Tile.grass ) {
+				this.x = x * 16 + 8;
+				this.y = y * 16 + 8;
+				level.add(new Anvil(this.x - 16, this.y));
+				return;
+			}
+		}
+	}
+	
 }
