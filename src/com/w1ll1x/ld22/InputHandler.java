@@ -10,9 +10,10 @@ public class InputHandler implements KeyListener {
 	public boolean left;
 	public boolean right;
 	public boolean attack;
+	public boolean menu;
 
 	public void releaseAll() {
-		up = down = left = right = false;
+		up = down = left = right = attack = menu = false;
 	}
 
 	public InputHandler(Game game) {
@@ -38,6 +39,8 @@ public class InputHandler implements KeyListener {
 			right = pressed;
 		if (ke.getKeyCode() == KeyEvent.VK_C)
 			attack = pressed;
+		if (ke.getKeyCode() == KeyEvent.VK_X)
+			menu = pressed;
 	}
 
 	public void keyTyped(KeyEvent ke) {

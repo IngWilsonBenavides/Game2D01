@@ -20,6 +20,7 @@ import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
 import com.w1ll1x.ld22.level.Level;
+import com.w1ll1x.ld22.screen.Menu;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -40,6 +41,13 @@ public class Game extends Canvas implements Runnable {
 
 	private Level level;
 	private Player player;
+	
+	public Menu menu;
+	
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+		menu.init(this, input);
+	}
 
 	public Game() {
 	}
@@ -134,7 +142,11 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		tickCount++;
 
-		level.tick();
+		if (menu != null) {
+			menu.tick();
+		} else {
+			level.tick();
+		}
 		if (!hasFocus()) {
 			input.releaseAll();
 		}
@@ -199,7 +211,7 @@ public class Game extends Canvas implements Runnable {
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 100, 000, 000), 0);
 		}
 
-		Font.renderFrame(screen, "inventory", 0, 0, 10, 14);
+		Font.renderFrame(screen, "inventory", 0, 0, 11, 14);
 		for (int i = 0; i < player.inventory.items.size(); i++) {
 			player.inventory.items.get(i).renderInventory(screen, 8, (i + 1) * 8);
 		}
