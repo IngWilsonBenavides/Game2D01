@@ -136,7 +136,7 @@ public class Level {
 	}
 
 	public void tick() {
-		for (int i = 0; i < w * h / 100; i++) {
+		for (int i = 0; i < w * h / 1000; i++) {
 			int xt = random.nextInt(w);
 			int yt = random.nextInt(w);
 			getTile(xt, yt).tick(this, xt, yt);

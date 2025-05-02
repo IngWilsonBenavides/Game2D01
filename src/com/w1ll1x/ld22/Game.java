@@ -191,11 +191,17 @@ public class Game extends Canvas implements Runnable {
 				screen.render(x * 8, screen.h - 16 + y * 8, 0 + 12 * 32, Color.get(333, 333, 333, 333), 0);
 			}
 		}
+		
 		for (int i = 0; i < 10; i++) {
 			if (i < player.health)
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 200, 500, 533), 0);
 			else
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 100, 000, 000), 0);
+		}
+
+		Font.renderFrame(screen, "inventory", 0, 0, 10, 14);
+		for (int i = 0; i < player.inventory.items.size(); i++) {
+			player.inventory.items.get(i).renderInventory(screen, 8, (i + 1) * 8);
 		}
 	}
 

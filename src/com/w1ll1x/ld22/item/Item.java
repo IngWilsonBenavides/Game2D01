@@ -1,6 +1,7 @@
 package com.w1ll1x.ld22.item;
 
 import com.w1ll1x.ld22.entity.ItemEntity;
+import com.w1ll1x.ld22.gfx.Screen;
 
 public class Item {
 
@@ -13,6 +14,9 @@ public class Item {
 	}
 
 	public void onTake(ItemEntity itemEntity) {
+	}
+
+	public void renderInventory(Screen screen, int x, int y) {
 	}
 
 }
