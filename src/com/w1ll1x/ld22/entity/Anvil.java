@@ -1,9 +1,10 @@
 package com.w1ll1x.ld22.entity;
 
 import com.w1ll1x.ld22.gfx.Color;
+import com.w1ll1x.ld22.screen.CraftingMenu;
 
 public class Anvil extends Furniture {
-	
+
 	public Anvil(int x, int y) {
 		super(x, y);
 		col = Color.get(-1, 000, 111, 222);
@@ -11,5 +12,8 @@ public class Anvil extends Furniture {
 		xr = 3;
 		yr = 2;
 	}
-	
+
+	protected void playerUse(Player player) {
+		player.game.setMenu(new CraftingMenu(this, player));
+	}
 }

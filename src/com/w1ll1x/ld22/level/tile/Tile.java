@@ -43,6 +43,8 @@ public class Tile {
 	}
 
 	public void tick(Level level, int xt, int yt) {
-		
+	}
+	
+	public void steppedOn(Level level, int xt, int yt, Entity entity) {
 	}
 }

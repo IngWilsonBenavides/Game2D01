@@ -45,4 +45,13 @@ public class Furniture extends Entity {
 			pushTime = 10;
 		}
 	}
+	
+	public void hurt(Mob mob, int dmg, int attackDir) {
+		if (mob instanceof Player) {
+			playerUse((Player) mob);
+		}
+	}
+
+	protected void playerUse(Player player) {
+	}
 }
