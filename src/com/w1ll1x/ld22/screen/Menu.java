@@ -2,6 +2,7 @@ package com.w1ll1x.ld22.screen;
 
 import com.w1ll1x.ld22.Game;
 import com.w1ll1x.ld22.InputHandler;
+import com.w1ll1x.ld22.gfx.Screen;
 
 public class Menu {
 	protected Game game;
@@ -13,6 +14,8 @@ public class Menu {
 	}
 
 	public void tick() {
-		
+	}
+	
+	public void render(Screen screen) {
 	}
 }

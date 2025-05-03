@@ -2,21 +2,24 @@ package com.w1ll1x.ld22.entity;
 
 import java.util.List;
 
+import com.w1ll1x.ld22.Game;
 import com.w1ll1x.ld22.InputHandler;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.level.Level;
 import com.w1ll1x.ld22.level.tile.Tile;
+import com.w1ll1x.ld22.screen.InventoryMenu;
 
 public class Player extends Mob {
 
 	private InputHandler input;
-	private boolean wasAttacking;
 	private int attackTime, attackDir;
-	
+
+	public Game game;
 	public Inventory inventory = new Inventory();
 
-	public Player(InputHandler input) {
+	public Player(Game game, InputHandler input) {
+		this.game = game;
 		this.input = input;
 		x = 24;
 		y = 24;
@@ -27,22 +30,21 @@ public class Player extends Mob {
 		int xa = 0;
 		int ya = 0;
 
-		if (input.up)
+		if (input.up.down)
 			ya--;
-		if (input.down)
+		if (input.down.down)
 			ya++;
-		if (input.left)
+		if (input.left.down)
 			xa--;
-		if (input.right)
+		if (input.right.down)
 			xa++;
 		move(xa, ya);
 
-		if (input.attack) {
-			if (!wasAttacking)
-				attack();
-			wasAttacking = true;
-		} else {
-			wasAttacking = false;
+		if (input.attack.clicked) {
+			attack();
+		}
+		if (input.menu.clicked) {
+			game.setMenu(new InventoryMenu(this));
 		}
 		if (attackTime > 0)
 			attackTime--;
@@ -139,7 +141,7 @@ public class Player extends Mob {
 		if (!inWater()) {
 			screen.render(xo + 8 * flip2, yo + 8, xt + (yt + 1) * 32, col, flip2);
 			screen.render(xo + 8 - 8 * flip2, yo + 8, xt + 1 + (yt + 1) * 32, col, flip2);
-		} 
+		}
 		if (attackTime > 0 && attackDir == 2) {
 			screen.render(xo - 4, yo, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 1);
 			screen.render(xo - 4, yo + 8, 7 + 13 * 32, Color.get(-1, 555, 555, 555), 3);
@@ -158,16 +160,16 @@ public class Player extends Mob {
 		itemEntity.take();
 		inventory.add(itemEntity.item);
 	}
-	
+
 	public boolean canSwim() {
 		return true;
 	}
-	
+
 	public void findStartPos(Level level) {
 		while (true) {
 			int x = random.nextInt(level.w);
 			int y = random.nextInt(level.h);
-			if (level.getTile(x, y) == Tile.grass && level.getTile(x - 1, y) == Tile.grass ) {
+			if (level.getTile(x, y) == Tile.grass && level.getTile(x - 1, y) == Tile.grass) {
 				this.x = x * 16 + 8;
 				this.y = y * 16 + 8;
 				level.add(new Anvil(this.x - 16, this.y));
@@ -176,5 +178,5 @@ public class Player extends Mob {
 			}
 		}
 	}
-	
+
 }

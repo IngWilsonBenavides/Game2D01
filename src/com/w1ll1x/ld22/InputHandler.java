@@ -2,18 +2,57 @@ package com.w1ll1x.ld22;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InputHandler implements KeyListener {
+	public class Key {
+		public int presses, absorbs;
+		public boolean down, clicked;
 
-	public boolean up;
-	public boolean down;
-	public boolean left;
-	public boolean right;
-	public boolean attack;
-	public boolean menu;
+		public Key() {
+			keys.add(this);
+		}
+
+		public void toggle(boolean pressed) {
+			if (pressed != down) {
+				down = pressed;
+
+				if (pressed) {
+					presses++;
+				}
+			}
+		}
+		
+		public void tick() {
+			if (absorbs < presses) {
+				absorbs++;
+				clicked = true;
+			} else {
+				clicked = false;
+			}
+		}
+	}
+
+	public List<Key> keys = new ArrayList<Key>();
+
+	public Key up = new Key();
+	public Key down = new Key();
+	public Key left = new Key();
+	public Key right = new Key();
+	public Key attack = new Key();
+	public Key menu = new Key();
 
 	public void releaseAll() {
-		up = down = left = right = attack = menu = false;
+		for (int i = 0; i < keys.size(); i++) {
+			keys.get(i).down = false;
+		}
+	}
+
+	public void tick() {
+		for (int i = 0; i < keys.size(); i++) {
+			keys.get(i).tick();
+		}
 	}
 
 	public InputHandler(Game game) {
@@ -30,17 +69,17 @@ public class InputHandler implements KeyListener {
 
 	private void toggle(KeyEvent ke, boolean pressed) {
 		if (ke.getKeyCode() == KeyEvent.VK_UP)
-			up = pressed;
+			up.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_DOWN)
-			down = pressed;
+			down.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_LEFT)
-			left = pressed;
+			left.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_RIGHT)
-			right = pressed;
+			right.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_C)
-			attack = pressed;
+			attack.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_X)
-			menu = pressed;
+			menu.toggle(pressed);
 	}
 
 	public void keyTyped(KeyEvent ke) {

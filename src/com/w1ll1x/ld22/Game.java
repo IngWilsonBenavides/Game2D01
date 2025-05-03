@@ -41,12 +41,13 @@ public class Game extends Canvas implements Runnable {
 
 	private Level level;
 	private Player player;
-	
+
 	public Menu menu;
-	
+
 	public void setMenu(Menu menu) {
 		this.menu = menu;
-		menu.init(this, input);
+		if (menu != null)
+			menu.init(this, input);
 	}
 
 	public Game() {
@@ -63,7 +64,7 @@ public class Game extends Canvas implements Runnable {
 
 	private void init() {
 		level = new Level(128, 128);
-		player = new Player(input);
+		player = new Player(this, input);
 		player.findStartPos(level);
 
 		level.add(player);
@@ -142,6 +143,7 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
 		tickCount++;
 
+		input.tick();
 		if (menu != null) {
 			menu.tick();
 		} else {
@@ -203,17 +205,16 @@ public class Game extends Canvas implements Runnable {
 				screen.render(x * 8, screen.h - 16 + y * 8, 0 + 12 * 32, Color.get(333, 333, 333, 333), 0);
 			}
 		}
-		
+
 		for (int i = 0; i < 10; i++) {
 			if (i < player.health)
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 200, 500, 533), 0);
 			else
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 100, 000, 000), 0);
 		}
-
-		Font.renderFrame(screen, "inventory", 0, 0, 11, 14);
-		for (int i = 0; i < player.inventory.items.size(); i++) {
-			player.inventory.items.get(i).renderInventory(screen, 8, (i + 1) * 8);
+		
+		if (menu != null) {
+			menu.render(screen);
 		}
 	}
 

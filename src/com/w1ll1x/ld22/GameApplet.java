@@ -1,9 +1,7 @@
-package com.w1ll1x.ld22.gfx;
+package com.w1ll1x.ld22;
 
 import java.applet.Applet;
 import java.awt.BorderLayout;
-
-import com.w1ll1x.ld22.Game;
 
 @SuppressWarnings("removal")
 public class GameApplet extends Applet {
