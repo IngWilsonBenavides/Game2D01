@@ -21,6 +21,7 @@ import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
 import com.w1ll1x.ld22.level.Level;
 import com.w1ll1x.ld22.screen.Menu;
+import com.w1ll1x.ld22.screen.TitleMenu;
 
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -96,6 +97,7 @@ public class Game extends Canvas implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		setMenu(new TitleMenu());
 	}
 
 	public void run() {

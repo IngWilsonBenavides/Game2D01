@@ -9,8 +9,8 @@ public class ToolItem extends Item {
 	public static final int MAX_LEVEL = 5;
 	public static final String[] LEVEL_NAMES = { "Wood", "Rock", "Iron", "Gold", "Gem" };
 	public static final int[] LEVEL_COLORS = { //
-			Color.get(-1, 100, 321, 321), //
-			Color.get(-1, 100, 321, 333), //
+			Color.get(-1, 100, 321, 431), //
+			Color.get(-1, 100, 321, 111), //
 			Color.get(-1, 100, 321, 555), //
 			Color.get(-1, 100, 321, 550), //
 			Color.get(-1, 100, 321, 55), };

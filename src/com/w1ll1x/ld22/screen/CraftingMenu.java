@@ -5,12 +5,9 @@ import java.util.List;
 
 import com.w1ll1x.ld22.entity.Anvil;
 import com.w1ll1x.ld22.entity.Player;
-import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
-import com.w1ll1x.ld22.item.Item;
 import com.w1ll1x.ld22.item.Resource;
-import com.w1ll1x.ld22.item.ResourceItem;
 
 public class CraftingMenu extends Menu {
 	private Anvil anvil;

@@ -76,6 +76,14 @@ public class InputHandler implements KeyListener {
 			left.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD6)
 			right.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_W)
+			up.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_S)
+			down.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_A)
+			left.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_D)
+			right.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_UP)
 			up.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_DOWN)
@@ -88,14 +96,24 @@ public class InputHandler implements KeyListener {
 		if (ke.getKeyCode() == KeyEvent.VK_TAB)
 			menu.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_ALT)
-			attack.toggle(pressed);
+			menu.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_ALT_GRAPH)
-			attack.toggle(pressed);
+			menu.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_SPACE)
 			attack.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_CONTROL)
 			attack.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_NUMPAD0)
+			attack.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_INSERT)
+			attack.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_ENTER)
+			menu.toggle(pressed);
 		
+		if (ke.getKeyCode() == KeyEvent.VK_X)
+			menu.toggle(pressed);
+		if (ke.getKeyCode() == KeyEvent.VK_C)
+			attack.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_X)
 			menu.toggle(pressed);
 		if (ke.getKeyCode() == KeyEvent.VK_C)
