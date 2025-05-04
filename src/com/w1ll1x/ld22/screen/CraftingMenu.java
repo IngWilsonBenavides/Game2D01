@@ -16,24 +16,28 @@ public class CraftingMenu extends Menu {
 	private Anvil anvil;
 	private Player player;
 	private int selected = 0;
-	private List<Item> craftables = new ArrayList<Item>();
+	private List<CraftOption> craftables = new ArrayList<CraftOption>();
 
 	public CraftingMenu(Anvil anvil, Player player) {
 		this.anvil = anvil;
 		this.player = player;
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.wood));
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.wood));
-		craftables.add(new ResourceItem(Resource.wood));
-		craftables.add(new ResourceItem(Resource.wood));
-		craftables.add(new ResourceItem(Resource.wood));
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.stone));
-		craftables.add(new ResourceItem(Resource.stone));
+		craftables.add(new CraftOption("Upgrade anvil 1").addRequirement(Resource.wood, 16));
+		craftables.add(new CraftOption("Upgrade anvil 2 "));
+		craftables.add(new CraftOption("Upgrade anvil 3 "));
+		craftables.add(new CraftOption("Upgrade anvil 4"));
+		craftables.add(new CraftOption("Upgrade anvil 5"));
+		craftables.add(new CraftOption("Upgrade anvil 6"));
+		craftables.add(new CraftOption("Upgrade anvil 7"));
+		craftables.add(new CraftOption("Upgrade anvil 8"));
+		craftables.add(new CraftOption("Upgrade anvil 9"));
+		craftables.add(new CraftOption("Upgrade anvil 10"));
+		craftables.add(new CraftOption("Upgrade anvil 11"));
+		craftables.add(new CraftOption("Upgrade anvil 12"));
+		craftables.add(new CraftOption("Upgrade anvil 13"));
+		
+		for (int i = 0; i < craftables.size(); i++) {
+			craftables.get(i).checkCanCraft(player);
+		}
 	}
 
 	@Override
@@ -47,6 +51,8 @@ public class CraftingMenu extends Menu {
 			selected++;
 
 		int len = craftables.size();
+		if (len == 0)
+			selected = 0;
 		if (selected < 0)
 			selected += len;
 		if (selected >= len)
@@ -54,24 +60,8 @@ public class CraftingMenu extends Menu {
 	}
 
 	public void render(Screen screen) {
-		Font.renderFrame(screen, "crafting", 1, 1, 12, 11);
-		Font.renderFrame(screen, "upgrade", 13, 1, 13 + 12, 11);
+		Font.renderFrame(screen, "crafting", 1, 1, 18, 11);
 		
-		int i0 = 0;
-		int i1 = craftables.size();
-		if (i1 > 11) 
-			i1 = 9;
-		int io = selected - 4;
-		if (io > craftables.size() - 9)
-			io = craftables.size() - 9;
-		if (io < 0)
-			io = 0;
-		for (int i = i0; i < i1; i++) {
-			craftables.get(i + io).renderInventory(screen, 8 * 2, (i + 2) * 8);
-		}
-		
-		int yy = selected + 2 - io;
-		Font.draw(">", screen, 1 * 8, yy * 8, Color.get(5, 555, 555, 555));
-		Font.draw("<", screen, 12 * 8, yy * 8, Color.get(5, 555, 555, 555));
+		renderItemList(screen, 1, 1, 18, 11, craftables, selected);
 	}
 }

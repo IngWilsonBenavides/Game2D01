@@ -2,8 +2,9 @@ package com.w1ll1x.ld22.item;
 
 import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.screen.ListItem;
 
-public class Item {
+public class Item implements ListItem {
 
 	public int getColor() {
 		return 0;
