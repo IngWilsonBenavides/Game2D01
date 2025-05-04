@@ -40,8 +40,10 @@ public class Menu {
 			listItems.get(i + io).renderInventory(screen, (1 + xo) * 8, (i + 1 + yo) * 8);
 		}
 		
-		int yy = selected + 1 - io + yo;
-		Font.draw(">", screen, (xo + 0) * 8, yy * 8, Color.get(5, 555, 555, 555));
-		Font.draw("<", screen, (xo + w) * 8, yy * 8, Color.get(5, 555, 555, 555));
+		if (selected >= 0) {
+			int yy = selected + 1 - io + yo;
+			Font.draw(">", screen, (xo + 0) * 8, yy * 8, Color.get(5, 555, 555, 555));
+			Font.draw("<", screen, (xo + w) * 8, yy * 8, Color.get(5, 555, 555, 555));
+		}
 	}
 }
