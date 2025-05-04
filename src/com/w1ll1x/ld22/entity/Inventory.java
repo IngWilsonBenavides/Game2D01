@@ -20,6 +20,8 @@ public class Inventory {
 			} else {
 				has.count += toTake.count;
 			}
+		} else {
+			items.add(item);
 		}
 	}
 

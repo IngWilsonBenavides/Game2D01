@@ -1,6 +1,8 @@
 package com.w1ll1x.ld22.entity;
 
 import com.w1ll1x.ld22.gfx.Color;
+import com.w1ll1x.ld22.item.ToolItem;
+import com.w1ll1x.ld22.item.ToolType;
 import com.w1ll1x.ld22.screen.ContainerMenu;
 
 public class Chest extends Furniture {
@@ -10,6 +12,14 @@ public class Chest extends Furniture {
 		super(x, y);
 		col = Color.get(-1, 110, 331, 552);
 		sprite = 2 + 2 * 32;
+		
+		for (int i = 0; i < 5; i++) {
+			inventory.add(new ToolItem(ToolType.axe, i));
+			inventory.add(new ToolItem(ToolType.hoe, i));
+			inventory.add(new ToolItem(ToolType.pickaxe, i));
+			inventory.add(new ToolItem(ToolType.shovel, i));
+			inventory.add(new ToolItem(ToolType.sword, i));
+		}
 	}
 
 	protected void playerUse(Player player) {

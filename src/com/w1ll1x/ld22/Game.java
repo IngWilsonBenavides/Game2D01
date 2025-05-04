@@ -25,7 +25,7 @@ import com.w1ll1x.ld22.screen.Menu;
 public class Game extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String NAME = "Untitled game";
+	public static final String NAME = "Minicraft";
 	public static final int HEIGHT = 120;
 	public static final int WIDTH = 160;
 	public static final int SCALE = 3;
