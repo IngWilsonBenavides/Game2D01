@@ -1,6 +1,8 @@
 package com.w1ll1x.ld22.item;
 
+import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.ItemEntity;
+import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.screen.ListItem;
 
@@ -18,6 +20,13 @@ public class Item implements ListItem {
 	}
 
 	public void renderInventory(Screen screen, int x, int y) {
+	}
+
+	public boolean interact(Player player, Entity entity, int attackDir) {
+		return false;
+	}
+
+	public void renderIcon(Screen screen, int x, int y) {
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Item;
 import com.w1ll1x.ld22.level.Level;
 import com.w1ll1x.ld22.level.tile.Tile;
 
@@ -118,6 +119,14 @@ public class Entity {
 	}
 
 	public boolean canSwim() {
+		return false;
+	}
+
+	public boolean interact(Player player, Item item, int attackDir) {
+		return item.interact(player, this, attackDir);
+	}
+
+	public boolean use(Player player, int attackDir) {
 		return false;
 	}
 

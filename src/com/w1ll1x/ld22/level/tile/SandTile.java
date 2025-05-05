@@ -2,8 +2,12 @@ package com.w1ll1x.ld22.level.tile;
 
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.Mob;
+import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Item;
+import com.w1ll1x.ld22.item.ToolItem;
+import com.w1ll1x.ld22.item.ToolType;
 import com.w1ll1x.ld22.level.Level;
 
 public class SandTile extends Tile {
@@ -58,6 +62,15 @@ public class SandTile extends Tile {
 	public void steppedOn(Level level, int x, int y, Entity entity) {
 		if (entity instanceof Mob) {
 			level.setData(x, y, 10);
+		}
+	}
+	
+	public void interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
+		if (item instanceof ToolItem) {
+			ToolItem tool = (ToolItem) item;
+			if (tool.type == ToolType.shovel) {
+				level.setTile(xt, yt, Tile.dirt, 0);
+			}
 		}
 	}
 }

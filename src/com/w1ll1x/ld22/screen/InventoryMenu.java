@@ -3,6 +3,7 @@ package com.w1ll1x.ld22.screen;
 import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Item;
 
 public class InventoryMenu extends Menu {
 	private Player player;
@@ -10,6 +11,11 @@ public class InventoryMenu extends Menu {
 
 	public InventoryMenu(Player player) {
 		this.player = player;
+		
+		if (player.activeItem != null) {
+			player.inventory.items.add(0, player.activeItem);
+			player.activeItem = null;
+		}
 	}
 
 	@Override
@@ -29,6 +35,12 @@ public class InventoryMenu extends Menu {
 			selected += len;
 		if (selected >= len)
 			selected -= len;
+		
+		if (input.attack.clicked && len > 0) {
+			Item item = player.inventory.items.remove(selected);
+			player.activeItem = item;
+			game.setMenu(null);
+		}
 	}
 
 	public void render(Screen screen) {

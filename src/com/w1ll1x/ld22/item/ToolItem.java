@@ -30,6 +30,10 @@ public class ToolItem extends Item {
 	public int getSprite() {
 		return type.sprite + 5 * 32;
 	}
+	
+	public void renderIcon(Screen screen, int x, int y) {
+		screen.render(x, y, getSprite(), getColor(), 0);
+	}
 
 	public void renderInventory(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0);

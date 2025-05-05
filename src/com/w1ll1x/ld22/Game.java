@@ -69,7 +69,7 @@ public class Game extends Canvas implements Runnable {
 		player.findStartPos(level);
 
 		level.add(player);
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 1000; i++) {
 			Mob mob = new TestMob();
 			mob.findStartPos(level);
 			level.add(mob);
@@ -84,9 +84,9 @@ public class Game extends Canvas implements Runnable {
 					int bb = (b * 255 / 5);
 					int mid = (rr * 30 + gg * 59 + bb * 11) / 100;
 
-					int r1 = ((rr + mid * 2) / 3) * 230 / 255 + 10;
-					int g1 = ((gg + mid * 2) / 3) * 230 / 255 + 10;
-					int b1 = ((bb + mid * 2) / 3) * 230 / 255 + 10;
+					int r1 = ((rr + mid * 1) / 2) * 230 / 255 + 10;
+					int g1 = ((gg + mid * 1) / 2) * 230 / 255 + 10;
+					int b1 = ((bb + mid * 1) / 2) * 230 / 255 + 10;
 					colors[pp++] = r1 << 16 | g1 << 8 | b1;
 
 				}
@@ -204,15 +204,18 @@ public class Game extends Canvas implements Runnable {
 	private void renderGui() {
 		for (int y = 0; y < 2; y++) {
 			for (int x = 0; x < 20; x++) {
-				screen.render(x * 8, screen.h - 16 + y * 8, 0 + 12 * 32, Color.get(333, 333, 333, 333), 0);
+				screen.render(x * 8, screen.h - 16 + y * 8, 0 + 12 * 32, Color.get(000, 000, 000, 000), 0);
 			}
 		}
 
 		for (int i = 0; i < 10; i++) {
 			if (i < player.health)
-				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 200, 500, 533), 0);
+				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 200, 500, 533), 0);
 			else
-				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(333, 100, 000, 000), 0);
+				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 100, 000, 000), 0);
+		}
+		if (player.activeItem != null) {
+			player.activeItem.renderInventory(screen, 0, screen.h - 8);
 		}
 		
 		if (menu != null) {

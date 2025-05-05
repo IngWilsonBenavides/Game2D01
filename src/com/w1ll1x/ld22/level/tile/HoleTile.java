@@ -5,18 +5,18 @@ import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.level.Level;
 
-public class WaterTile extends Tile {
+public class HoleTile extends Tile {
 
-	public WaterTile(int id) {
+	public HoleTile(int id) {
 		super(id);
 		connectsToSand = true;
 		connectsToWater = true;
 	}
 
 	public void render(Screen screen, Level level, int x, int y) {
-		int col = Color.get(005, 005, 115, 115);
-		int transitionColor1 = Color.get(3, 005, level.dirtColor - 111, level.dirtColor);
-		int transitionColor2 = Color.get(3, 005, level.sandColor - 110, level.sandColor);
+		int col = Color.get(111, 111, 110, 110);
+		int transitionColor1 = Color.get(3, 111, level.dirtColor - 111, level.dirtColor);
+		int transitionColor2 = Color.get(3, 111, level.sandColor - 110, level.sandColor);
 
 		boolean u = !level.getTile(x, y - 1).connectsToWater;
 		boolean d = !level.getTile(x, y + 1).connectsToWater;
@@ -48,19 +48,5 @@ public class WaterTile extends Tile {
 
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return e.canSwim();
-	}
-	
-	public void tick(Level level, int xt, int yt) {
-		int xn = xt;
-		int yn = yt;
-
-		if (random.nextBoolean())
-			xn += random.nextInt(2) * 2 - 1;
-		else 
-			yn += random.nextInt(2) * 2 - 1;
-		
-		if (level.getTile(xn, yn) == Tile.hole) {
-			level.setTile(xn, yn, this, 0);
-		}
 	}
 }

@@ -4,7 +4,9 @@ import java.util.Random;
 
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.Mob;
+import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Item;
 import com.w1ll1x.ld22.level.Level;
 
 public class Tile {
@@ -18,10 +20,12 @@ public class Tile {
 	public static Tile dirt = new DirtTile(5);
 	public static Tile sand = new SandTile(6);
 	public static Tile cactus = new CactusTile(7);
+	public static Tile hole = new HoleTile(8);
 
 	public final byte id;
 	public boolean connectsToGrass = false;
 	public boolean connectsToSand = false;
+	public boolean connectsToWater = false;
 
 	public Tile(int id) {
 		this.id = (byte) id;
@@ -46,5 +50,12 @@ public class Tile {
 	}
 	
 	public void steppedOn(Level level, int xt, int yt, Entity entity) {
+	}
+
+	public void interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
+	}
+
+	public boolean use(Level level, int xt, int yt, Player player, int attackDir) {
+		return false;
 	}
 }

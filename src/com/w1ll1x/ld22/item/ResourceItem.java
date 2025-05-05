@@ -26,6 +26,10 @@ public class ResourceItem extends Item {
 		return resource.sprite;
 	}
 	
+	public void renderIcon(Screen screen, int x, int y) {
+		screen.render(x, y, resource.sprite, resource.color, 0);
+	}
+	
 	public void renderInventory(Screen screen, int x, int y) {
 		screen.render(x, y, resource.sprite, resource.color, 0);
 		Font.draw(resource.name, screen, x + 32, y, Color.get(-1, 555, 555, 555));
