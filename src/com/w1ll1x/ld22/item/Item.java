@@ -4,6 +4,8 @@ import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.level.Level;
+import com.w1ll1x.ld22.level.tile.Tile;
 import com.w1ll1x.ld22.screen.ListItem;
 
 public class Item implements ListItem {
@@ -29,4 +31,11 @@ public class Item implements ListItem {
 	public void renderIcon(Screen screen, int x, int y) {
 	}
 
+	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
+		return false;
+	}
+
+	public boolean isDepleted() {
+		return false;
+	}
 }

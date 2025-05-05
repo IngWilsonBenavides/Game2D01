@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.w1ll1x.ld22.item.Item;
-import com.w1ll1x.ld22.item.Resource;
 import com.w1ll1x.ld22.item.ResourceItem;
+import com.w1ll1x.ld22.item.resource.Resource;
 
 public class Inventory {
 	public List<Item> items = new ArrayList<Item>();
-
+	
 	public void add(Item item) {
-		
+		add(items.size(), item);
+	}
+
+	public void add(int slot, Item item) {
 		if (item instanceof ResourceItem) {
 			ResourceItem toTake = (ResourceItem) item;
 			ResourceItem has = findResource(toTake.resource);
@@ -21,32 +24,33 @@ public class Inventory {
 				has.count += toTake.count;
 			}
 		} else {
-			items.add(item);
+			items.add(slot, item);
 		}
 	}
 
 	private ResourceItem findResource(Resource resource) {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i) instanceof ResourceItem) {
-				ResourceItem has = (ResourceItem)items.get(i);
-				if (has.resource == resource) return has;
+				ResourceItem has = (ResourceItem) items.get(i);
+				if (has.resource == resource)
+					return has;
 			}
 		}
 		return null;
 	}
-	
+
 	public boolean hasResources(Resource r, int count) {
 		ResourceItem ri = findResource(r);
 		if (ri == null)
 			return false;
 		return ri.count >= count;
 	}
-	
+
 	public boolean removeResource(Resource r, int count) {
 		ResourceItem ri = findResource(r);
 		if (ri == null)
 			return false;
-		if (ri.count < count) 
+		if (ri.count < count)
 			return false;
 		ri.count -= count;
 		if (ri.count <= 0)

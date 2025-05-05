@@ -1,9 +1,13 @@
 package com.w1ll1x.ld22.item;
 
 import com.w1ll1x.ld22.entity.ItemEntity;
+import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.resource.Resource;
+import com.w1ll1x.ld22.level.Level;
+import com.w1ll1x.ld22.level.tile.Tile;
 
 public class ResourceItem extends Item {
 	public Resource resource;
@@ -40,5 +44,17 @@ public class ResourceItem extends Item {
 	}
 
 	public void onTake(ItemEntity itemEntity) {
+	}
+	
+	public boolean interactOn(Tile tile, Level level, int xt, int yt, Player player, int attackDir) {
+		if (resource.interactOn(tile, level, xt, yt, player, attackDir)) {
+			count--;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isDepleted() {
+		return count <= 0;
 	}
 }

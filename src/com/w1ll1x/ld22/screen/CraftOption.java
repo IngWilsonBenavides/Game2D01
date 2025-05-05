@@ -7,8 +7,8 @@ import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
-import com.w1ll1x.ld22.item.Resource;
 import com.w1ll1x.ld22.item.ResourceItem;
+import com.w1ll1x.ld22.item.resource.Resource;
 
 public class CraftOption implements ListItem {
 	private String msg;

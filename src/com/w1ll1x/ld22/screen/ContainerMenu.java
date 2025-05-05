@@ -59,7 +59,7 @@ public class ContainerMenu extends Menu {
 			selected -= len;
 
 		if (input.attack.clicked && len > 0) {
-			i2.add(i.items.remove(selected));
+			i2.add(oSelected, i.items.remove(selected));
 			if (selected >= i.items.size())
 				selected = i.items.size() - 1;
 		}

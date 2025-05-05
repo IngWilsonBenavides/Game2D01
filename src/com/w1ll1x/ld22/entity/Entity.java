@@ -67,6 +67,11 @@ public class Entity {
 		if (xa != 0 && ya != 0)
 			throw new IllegalArgumentException("Move2 can only move along one axis at a time!");
 		
+		int xto0 = ((x) - xr) >> 4;
+		int yto0 = ((y) - yr) >> 4;
+		int xto1 = ((x) + xr) >> 4;
+		int yto1 = ((y) + yr) >> 4;
+		
 		int xt0 = ((x + xa) - xr) >> 4;
 		int yt0 = ((y + ya) - yr) >> 4;
 		int xt1 = ((x + xa) + xr) >> 4;
@@ -74,6 +79,8 @@ public class Entity {
 		boolean blocked = false;
 		for (int yt = yt0; yt <= yt1; yt++) {
 			for (int xt = xt0; xt <= xt1; xt++) {
+				if (xt >= xto0 && xt <= xto1 && yt >= yto0 && yt <= yto1)
+					continue;
 				level.getTile(xt, yt).bumpedInto(level, xt, yt, this);
 				if (!level.getTile(xt, yt).mayPass(level, xt, yt, this)) {
 					blocked = true;
