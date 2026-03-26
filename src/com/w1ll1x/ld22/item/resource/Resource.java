@@ -11,6 +11,8 @@ public class Resource {
 	public static Resource stone = new Resource("Stone", 2 + 4 * 32, Color.get(-1, 111, 333, 555));
 	public static Resource flower = new Resource("Flower", 0 + 4 * 32, Color.get(-1, 10, 444, 330));
 	public static Resource acorn = new AcornResource("Acorn", 3 + 4 * 32, Color.get(-1, 100, 531, 320));
+	public static Resource dirt = new DirtResource("Dirt", 2 + 4 * 32, Color.get(-1, 100, 322, 432));
+	public static Resource sand = new SandResource("Sand", 2 + 4 * 32, Color.get(-1, 110, 440, 550));
 
 	public final String name;
 	public final int sprite;
