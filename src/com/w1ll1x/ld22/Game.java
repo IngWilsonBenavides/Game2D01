@@ -20,6 +20,7 @@ import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.gfx.SpriteSheet;
 import com.w1ll1x.ld22.level.Level;
+import com.w1ll1x.ld22.level.tile.Tile;
 import com.w1ll1x.ld22.screen.Menu;
 import com.w1ll1x.ld22.screen.TitleMenu;
 
@@ -150,6 +151,7 @@ public class Game extends Canvas implements Runnable {
 			menu.tick();
 		} else {
 			level.tick();
+			Tile.tickCount++;
 		}
 		if (!hasFocus()) {
 			input.releaseAll();
