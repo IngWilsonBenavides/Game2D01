@@ -47,9 +47,17 @@ public class ItemEntity extends Entity {
 			ya *= 0.6;
 		}
 		za -= 0.15;
+		int ox = x;
+		int oy = y;
 		int nx = (int) xx;
 		int ny = (int) yy;
+		int expectedx = nx - x;
+		int expectedy = ny - y;
 		move(nx - x, ny - y);
+		int gotx = nx - ox;
+		int goty = ny - oy;
+		xx += gotx - expectedx;
+		yy += goty - expectedy;
 
 		if (hurtTime > 0)
 			hurtTime--;

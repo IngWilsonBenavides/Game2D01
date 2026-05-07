@@ -66,6 +66,7 @@ public class GrassTile extends Tile {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;
 			if (tool.type == ToolType.shovel) {
+				player.stamina -= 4 - tool.level;
 				level.setTile(xt, yt, Tile.dirt, 0);
 			}
 		}

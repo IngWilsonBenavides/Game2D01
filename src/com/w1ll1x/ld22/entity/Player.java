@@ -21,22 +21,38 @@ public class Player extends Mob {
 	public Item attackItem;
 	public Item activeItem;
 	public int stamina;
+	public int staminaRecharge;
+	public int staminaRechargeDelay;
 
 	public Player(Game game, InputHandler input) {
 		this.game = game;
 		this.input = input;
 		x = 24;
 		y = 24;
+		stamina = 10;
 	}
 
 	public void tick() {
 		super.tick();
-		
-		if (tickTime % 20 == 0) {
-			if (stamina < 10) {
-				stamina++;
+
+		if (stamina <= 0 && staminaRechargeDelay == 0 && staminaRecharge == 0) {
+			staminaRechargeDelay = 40;
+		}
+
+		if (staminaRechargeDelay > 0) {
+			staminaRechargeDelay--;
+		}
+
+		if (staminaRechargeDelay == 0) {
+			staminaRecharge++;
+			while (staminaRecharge > 10) {
+				staminaRecharge -= 10;
+				if (stamina < 10) {
+					stamina++;
+				}
 			}
 		}
+
 		int xa = 0;
 		int ya = 0;
 
@@ -48,13 +64,16 @@ public class Player extends Mob {
 			xa--;
 		if (input.right.down)
 			xa++;
-		move(xa, ya);
+
+		if (staminaRechargeDelay % 2 == 0)
+			move(xa, ya);
 
 		if (input.attack.clicked) {
 			if (stamina == 0) {
-				
+
 			} else {
 				stamina--;
+				staminaRecharge = 0;
 				attack();
 			}
 		}

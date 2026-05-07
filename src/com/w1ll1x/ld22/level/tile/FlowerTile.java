@@ -41,6 +41,7 @@ public class FlowerTile extends GrassTile {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;
 			if (tool.type == ToolType.shovel) {
+				player.stamina -= 4 - tool.level;
 				level.add(new ItemEntity(new ResourceItem(Resource.flower), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
 				level.add(new ItemEntity(new ResourceItem(Resource.flower), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
 				level.setTile(x, y, Tile.grass, 0);
@@ -49,8 +50,10 @@ public class FlowerTile extends GrassTile {
 	}
 	
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
-		level.add(new ItemEntity(new ResourceItem(Resource.flower), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
-		level.add(new ItemEntity(new ResourceItem(Resource.flower), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
+		int count = random.nextInt(2) + 1;
+		for (int i = 0; i < count; i++) {
+			level.add(new ItemEntity(new ResourceItem(Resource.flower), x * 16 + random.nextInt(10) + 3, y * 16  + random.nextInt(10) + 3));
+		}
 		level.setTile(x, y, Tile.grass, 0);
 	}
 

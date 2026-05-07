@@ -72,6 +72,7 @@ public class SandTile extends Tile {
 		if (item instanceof ToolItem) {
 			ToolItem tool = (ToolItem) item;
 			if (tool.type == ToolType.shovel) {
+				player.stamina -= 4 - tool.level;
 				level.setTile(xt, yt, Tile.dirt, 0);
 				level.add(new ItemEntity(new ResourceItem(Resource.sand), xt * 16 + random.nextInt(10) + 3, yt * 16  + random.nextInt(10) + 3));
 			}
