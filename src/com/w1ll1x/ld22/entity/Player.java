@@ -20,6 +20,7 @@ public class Player extends Mob {
 	public Inventory inventory = new Inventory();
 	public Item attackItem;
 	public Item activeItem;
+	public int stamina;
 
 	public Player(Game game, InputHandler input) {
 		this.game = game;
@@ -30,6 +31,12 @@ public class Player extends Mob {
 
 	public void tick() {
 		super.tick();
+		
+		if (tickTime % 20 == 0) {
+			if (stamina < 10) {
+				stamina++;
+			}
+		}
 		int xa = 0;
 		int ya = 0;
 
@@ -44,7 +51,12 @@ public class Player extends Mob {
 		move(xa, ya);
 
 		if (input.attack.clicked) {
-			attack();
+			if (stamina == 0) {
+				
+			} else {
+				stamina--;
+				attack();
+			}
 		}
 		if (input.menu.clicked) {
 			if (!use()) {

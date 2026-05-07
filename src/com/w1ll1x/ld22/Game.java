@@ -215,9 +215,14 @@ public class Game extends Canvas implements Runnable {
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 200, 500, 533), 0);
 			else
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 100, 000, 000), 0);
+			
+			if (i < player.stamina)
+				screen.render(i * 8, screen.h - 8, 1 + 12 * 32, Color.get(000, 220, 550, 553), 0);
+			else
+				screen.render(i * 8, screen.h - 8, 1 + 12 * 32, Color.get(000, 110, 000, 000), 0);
 		}
 		if (player.activeItem != null) {
-			player.activeItem.renderInventory(screen, 0, screen.h - 8);
+			player.activeItem.renderInventory(screen, 10 * 8, screen.h - 16);
 		}
 		
 		if (menu != null) {
