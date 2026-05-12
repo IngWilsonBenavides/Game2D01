@@ -1,11 +1,16 @@
 package com.w1ll1x.ld22.item;
 
+import java.util.Random;
+
+import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
 
 public class ToolItem extends Item {
+	private Random random = new Random();
+
 	public static final int MAX_LEVEL = 5;
 	public static final String[] LEVEL_NAMES = { "Wood", "Rock", "Iron", "Gold", "Gem" };
 	public static final int[] LEVEL_COLORS = { //
@@ -30,7 +35,7 @@ public class ToolItem extends Item {
 	public int getSprite() {
 		return type.sprite + 5 * 32;
 	}
-	
+
 	public void renderIcon(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0);
 	}
@@ -41,5 +46,19 @@ public class ToolItem extends Item {
 	}
 
 	public void onTake(ItemEntity itemEntity) {
+	}
+
+	public boolean canAttack() {
+		return true;
+	}
+
+	public int getAttackDamageBonus(Entity e) {
+		if (type == ToolType.axe) {
+			return (level + 1) * 2 + random.nextInt(4);
+		}
+		if (type == ToolType.sword) {
+			return (level + 1) * 4 + random.nextInt(8);
+		}
+		return 1;
 	}
 }

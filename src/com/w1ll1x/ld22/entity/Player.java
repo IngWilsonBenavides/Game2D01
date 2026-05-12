@@ -122,7 +122,7 @@ public class Player extends Mob {
 		attackDir = dir;
 		attackItem = activeItem;
 
-		if (activeItem == null) {
+		if (activeItem == null || activeItem.canAttack()) {
 			attackTime = 5;
 			int yo = -2;
 			if (dir == 0)
@@ -148,9 +148,11 @@ public class Player extends Mob {
 				xt = (x + r) >> 4;
 
 			if (xt >= 0 && yt >= 0 && xt < level.w && yt < level.h) {
-				level.getTile(xt, yt).hurt(level, xt, yt, this, random.nextInt(4) + 1, attackDir);
+				level.getTile(xt, yt).hurt(level, xt, yt, this, random.nextInt(3) + 1, attackDir);
 			}
-		} else {
+		} 
+
+		if (activeItem != null) {
 			attackTime = 10;
 			int yo = -2;
 			if (dir == 0)
@@ -214,8 +216,16 @@ public class Player extends Mob {
 		for (int i = 0; i < entities.size(); i++) {
 			Entity e = entities.get(i);
 			if (e != this)
-				e.hurt(this, random.nextInt(4) + 1, attackDir);
+				e.hurt(this, getAttackDamage(e), attackDir);
 		}
+	}
+
+	private int getAttackDamage(Entity e) {
+		int dmg = random.nextInt(3) + 1;
+		if (attackItem != null) {
+			dmg += attackItem.getAttackDamageBonus(e);
+		}
+		return dmg;
 	}
 
 	public void render(Screen screen) {

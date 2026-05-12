@@ -3,11 +3,15 @@ package com.w1ll1x.ld22.level.tile;
 import com.w1ll1x.ld22.entity.Entity;
 import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.entity.Mob;
+import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.entity.particle.SmashParticle;
 import com.w1ll1x.ld22.entity.particle.TextParticle;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.Item;
 import com.w1ll1x.ld22.item.ResourceItem;
+import com.w1ll1x.ld22.item.ToolItem;
+import com.w1ll1x.ld22.item.ToolType;
 import com.w1ll1x.ld22.item.resource.Resource;
 import com.w1ll1x.ld22.level.Level;
 
@@ -72,12 +76,27 @@ public class RockTile extends Tile {
 	public boolean mayPass(Level level, int x, int y, Entity e) {
 		return false;
 	}
-
+	
 	public void hurt(Level level, int x, int y, Mob source, int dmg, int attackDir) {
+		hurt(level, x, y, dmg);
+		
+	}
+	
+	public void interact(Level level, int xt, int yt, Player player, Item item, int attackDir) {
+		if (item instanceof ToolItem) {
+			ToolItem tool = (ToolItem) item;
+			if (tool.type == ToolType.pickaxe) {
+				player.stamina -= 4 - tool.level;
+				hurt(level, xt, yt, random.nextInt(10) + (tool.level) * 5 + 10);
+			}
+		}
+	}
+
+	public void hurt(Level level, int x, int y, int dmg) {
 		int damage = level.getData(x, y) + dmg;
 		level.add(new SmashParticle(x * 16 + 8, y * 16 + 8));
 		level.add(new TextParticle("" + dmg, x * 16 + 8, y * 16 + 8, Color.get(-1, 500, 500, 500)));
-		if (damage >= 32) {
+		if (damage >= 50) {
 			int count = random.nextInt(4) + 1;
 			for (int i = 0; i < count; i++) {
 				level.add(new ItemEntity(new ResourceItem(Resource.stone), x * 16 + random.nextInt(10) + 3,

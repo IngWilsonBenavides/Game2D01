@@ -38,4 +38,12 @@ public class Item implements ListItem {
 	public boolean isDepleted() {
 		return false;
 	}
+
+	public boolean canAttack() {
+		return false;
+	}
+
+	public int getAttackDamageBonus(Entity e) {
+		return 0;
+	}
 }
