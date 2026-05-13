@@ -57,7 +57,7 @@ public class ToolItem extends Item {
 			return (level + 1) * 2 + random.nextInt(4);
 		}
 		if (type == ToolType.sword) {
-			return (level + 1) * 4 + random.nextInt(8);
+			return (level + 1) * 3 + random.nextInt(2 + level * level * 2);
 		}
 		return 1;
 	}
