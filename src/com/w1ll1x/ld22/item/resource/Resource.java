@@ -13,7 +13,9 @@ public class Resource {
 	public static Resource acorn = new PlantableResource("Acorn", 3 + 4 * 32, Color.get(-1, 100, 531, 320), Tile.treeSapling, Tile.grass);
 	public static Resource dirt = new PlantableResource("Dirt", 2 + 4 * 32, Color.get(-1, 100, 322, 432), Tile.dirt, Tile.hole, Tile.water);
 	public static Resource sand = new PlantableResource("Sand", 2 + 4 * 32, Color.get(-1, 110, 440, 550), Tile.sand, Tile.grass, Tile.dirt);
-	public static Resource cactusFlower = new PlantableResource("Cactus", 2 + 4 * 32, Color.get(-1, 110, 40, 50), Tile.cactusSapling, Tile.sand);
+	public static Resource cactusFlower = new PlantableResource("Cactus", 4 + 4 * 32, Color.get(-1, 110, 40, 50), Tile.cactusSapling, Tile.sand);
+	public static Resource seeds = new PlantableResource("Seeds", 5 + 4 * 32, Color.get(-1, 110, 40, 50), Tile.wheat, Tile.farmland);
+	public static Resource wheat = new Resource("Wheat", 6 + 4 * 32, Color.get(-1, 110, 330, 550));
 
 	public final String name;
 	public final int sprite;

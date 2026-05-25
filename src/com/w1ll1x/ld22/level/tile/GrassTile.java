@@ -1,11 +1,14 @@
 package com.w1ll1x.ld22.level.tile;
 
+import com.w1ll1x.ld22.entity.ItemEntity;
 import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.item.Item;
+import com.w1ll1x.ld22.item.ResourceItem;
 import com.w1ll1x.ld22.item.ToolItem;
 import com.w1ll1x.ld22.item.ToolType;
+import com.w1ll1x.ld22.item.resource.Resource;
 import com.w1ll1x.ld22.level.Level;
 
 public class GrassTile extends Tile {
@@ -68,6 +71,9 @@ public class GrassTile extends Tile {
 			if (tool.type == ToolType.shovel) {
 				player.stamina -= 4 - tool.level;
 				level.setTile(xt, yt, Tile.dirt, 0);
+				if (random.nextInt(5) == 0) {
+					level.add(new ItemEntity(new ResourceItem(Resource.seeds), xt * 16 + random.nextInt(10) + 3, yt * 16  + random.nextInt(10) + 3));
+				}
 			}
 		}
 		if (item instanceof ToolItem) {
