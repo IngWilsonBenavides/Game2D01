@@ -2,6 +2,7 @@ package com.w1ll1x.ld22.entity;
 
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.item.FurnitureItem;
+import com.w1ll1x.ld22.item.PowerGloveItem;
 import com.w1ll1x.ld22.item.ResourceItem;
 import com.w1ll1x.ld22.item.ToolItem;
 import com.w1ll1x.ld22.item.ToolType;
@@ -16,6 +17,7 @@ public class Chest extends Furniture {
 		col = Color.get(-1, 110, 331, 552);
 		sprite = 1;
 		
+		inventory.add(new PowerGloveItem());
 		inventory.add(new FurnitureItem(new Anvil(0, 0)));
 		inventory.add(new ResourceItem(Resource.wheat, 64));
 		for (int i = 0; i < 5; i++) {

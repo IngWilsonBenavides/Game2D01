@@ -10,7 +10,7 @@ import com.w1ll1x.ld22.level.Level;
 import com.w1ll1x.ld22.level.tile.Tile;
 
 public class FurnitureItem extends Item {
-	private Furniture furniture;
+	public Furniture furniture;
 	public boolean placed = false;
 
 	public FurnitureItem(Furniture furniture) {

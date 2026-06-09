@@ -118,6 +118,7 @@ public class Level {
 	}
 
 	public void add(Entity entity) {
+		entity.removed = false;
 		entities.add(entity);
 		entity.init(this);
 		insertEntity(entity.x >> 4, entity.y >> 4, entity);

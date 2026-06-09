@@ -6,6 +6,7 @@ import com.w1ll1x.ld22.Game;
 import com.w1ll1x.ld22.InputHandler;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.gfx.Screen;
+import com.w1ll1x.ld22.item.FurnitureItem;
 import com.w1ll1x.ld22.item.Item;
 import com.w1ll1x.ld22.level.Level;
 import com.w1ll1x.ld22.level.tile.Tile;
@@ -271,6 +272,9 @@ public class Player extends Mob {
 			col = Color.get(-1, 555, 555, 555);
 		}
 
+		if (activeItem instanceof FurnitureItem) {
+			yt += 2;
+		}
 		screen.render(xo + 8 * flip1, yo + 0, xt + yt * 32, col, flip1);
 		screen.render(xo + 8 - 8 * flip1, yo + 0, xt + 1 + yt * 32, col, flip1);
 		if (!inWater()) {
@@ -297,6 +301,13 @@ public class Player extends Mob {
 			if (attackItem != null) {
 				attackItem.renderIcon(screen, xo + 4, yo + 8 + 4);
 			}
+		}
+		
+		if (activeItem instanceof FurnitureItem) {
+			Furniture furniture = ((FurnitureItem)activeItem).furniture;
+			furniture.x = x;
+			furniture.y = yo;
+			furniture.render(screen);
 		}
 	}
 
