@@ -13,7 +13,7 @@ public class Mob extends Entity {
 	protected int xKnockback, yKnockback;
 	public int health = 10;
 	public int swimTimer = 0;
-	protected int tickTime = 0;
+	public int tickTime = 0;
 
 	public Mob() {
 		x = y = 8;

@@ -23,7 +23,7 @@ public class PowerGloveItem extends Item {
 
 	public void renderInventory(Screen screen, int x, int y) {
 		screen.render(x, y, getSprite(), getColor(), 0);
-		Font.draw("Pwr glove", screen, x + 8, y, Color.get(-1, 555, 555, 555));
+		Font.draw("Pow glove", screen, x + 8, y, Color.get(-1, 555, 555, 555));
 	}
 
 	public boolean interact(Player player, Entity entity, int attackDir) {

@@ -29,5 +29,4 @@ public class AboutMenu extends Menu {
 		Font.draw("it is dedicated to", screen, 0 * 8 + 4, 10 * 8, Color.get(0, 333, 333, 333));
 		Font.draw("life.", screen, 0 * 8 + 4, 11 * 8, Color.get(0, 333, 333, 333));
 	}
-
 }

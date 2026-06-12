@@ -24,6 +24,7 @@ public class Player extends Mob {
 	public int stamina;
 	public int staminaRecharge;
 	public int staminaRechargeDelay;
+	public int score;
 
 	public Player(Game game, InputHandler input) {
 		this.game = game;

@@ -27,8 +27,10 @@ public class TitleMenu extends Menu {
 			selected -= len;
 
 		if (input.attack.clicked || input.menu.clicked) {
-			if (selected == 0)
+			if (selected == 0) {
+				game.resetGame();
 				game.setMenu(null);
+			}
 			if (selected == 1)
 				game.setMenu(new InstructionsMenu(this));
 			if (selected == 2)

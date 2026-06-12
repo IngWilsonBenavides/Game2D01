@@ -42,9 +42,10 @@ public class Game extends Canvas implements Runnable {
 	private int tickCount = 0;
 
 	private Level level;
-	private Player player;
+	public Player player;
 
 	public Menu menu;
+	private int playerDeadTime;
 
 	public void setMenu(Menu menu) {
 		this.menu = menu;
@@ -64,7 +65,7 @@ public class Game extends Canvas implements Runnable {
 		running = false;
 	}
 
-	private void init() {
+	public void resetGame() {
 		level = new Level(128, 128);
 		player = new Player(this, input);
 		player.findStartPos(level);
@@ -75,7 +76,9 @@ public class Game extends Canvas implements Runnable {
 			mob.findStartPos(level);
 			level.add(mob);
 		}
+	}
 
+	private void init() {
 		int pp = 0;
 		for (int r = 0; r < 6; r++) {
 			for (int g = 0; g < 6; g++) {
@@ -98,6 +101,7 @@ public class Game extends Canvas implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		resetGame();
 		setMenu(new TitleMenu());
 	}
 
@@ -150,6 +154,12 @@ public class Game extends Canvas implements Runnable {
 		if (menu != null) {
 			menu.tick();
 		} else {
+			if (player.removed) {
+				playerDeadTime++;
+				if (playerDeadTime > 60) {
+					setMenu(new DeadMenu());
+				}
+			}
 			level.tick();
 			Tile.tickCount++;
 		}
@@ -215,7 +225,7 @@ public class Game extends Canvas implements Runnable {
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 200, 500, 533), 0);
 			else
 				screen.render(i * 8, screen.h - 16, 0 + 12 * 32, Color.get(000, 100, 000, 000), 0);
-			
+
 			if (player.staminaRechargeDelay > 0) {
 				if (player.staminaRechargeDelay / 4 % 2 == 0)
 					screen.render(i * 8, screen.h - 8, 1 + 12 * 32, Color.get(000, 555, 000, 000), 0);
@@ -231,7 +241,7 @@ public class Game extends Canvas implements Runnable {
 		if (player.activeItem != null) {
 			player.activeItem.renderInventory(screen, 10 * 8, screen.h - 16);
 		}
-		
+
 		if (menu != null) {
 			menu.render(screen);
 		}
@@ -281,5 +291,4 @@ public class Game extends Canvas implements Runnable {
 
 		game.start();
 	}
-
 }
