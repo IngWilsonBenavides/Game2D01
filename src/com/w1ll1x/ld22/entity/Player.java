@@ -69,9 +69,9 @@ public class Player extends Mob {
 		if (input.right.down)
 			xa++;
 		if (inWater() && tickTime % 60 == 0) {
-			if (stamina > 0)
+			if (stamina > 0) {
 				stamina--;
-			else {
+			} else {
 				hurt(this, 1, dir ^ 1);
 			}
 		}
