@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.w1ll1x.ld22.entity.Anvil;
+import com.w1ll1x.ld22.entity.Furniture;
 import com.w1ll1x.ld22.entity.Player;
 import com.w1ll1x.ld22.gfx.Font;
 import com.w1ll1x.ld22.gfx.Screen;
 import com.w1ll1x.ld22.item.resource.Resource;
 
 public class CraftingMenu extends Menu {
-	private Anvil anvil;
+	private Furniture furniture;
 	private Player player;
 	private int selected = 0;
 	private List<CraftOption> craftables = new ArrayList<CraftOption>();
 
-	public CraftingMenu(Anvil anvil, Player player) {
-		this.anvil = anvil;
+	public CraftingMenu(Furniture furniture, Player player) {
+		this.furniture = furniture;
 		this.player = player;
 		craftables.add(new CraftOption("Upgrade anvil 1").addRequirement(Resource.wood, 16));
 		craftables.add(new CraftOption("Upgrade anvil 2 "));

@@ -18,6 +18,8 @@ public class Chest extends Furniture {
 		sprite = 1;
 		
 		inventory.add(new PowerGloveItem());
+		inventory.add(new FurnitureItem(new Oven(0, 0)));
+		inventory.add(new FurnitureItem(new Furnace(0, 0)));
 		inventory.add(new FurnitureItem(new Anvil(0, 0)));
 		inventory.add(new ResourceItem(Resource.wheat, 64));
 		for (int i = 0; i < 5; i++) {

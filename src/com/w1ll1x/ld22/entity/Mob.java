@@ -11,7 +11,8 @@ public class Mob extends Entity {
 	protected int dir = 0;
 	public int hurtTime = 0;
 	protected int xKnockback, yKnockback;
-	public int health = 10;
+	public int maxHealth = 10;
+	public int health = maxHealth;
 	public int swimTimer = 0;
 	public int tickTime = 0;
 
@@ -84,6 +85,16 @@ public class Mob extends Entity {
 		doHurt(damage, attackDir);
 	}
 
+	public void heal(int heal) {
+		if (hurtTime > 0)
+			return;
+		level.add(new TextParticle("" + heal, x, y, Color.get(-1, 50, 50, 50)));
+		health += heal;
+		if (health > maxHealth) {
+			
+		}
+	}
+	
 	protected void doHurt(int damage, int attackDir) {
 		if (hurtTime > 0)
 			return;

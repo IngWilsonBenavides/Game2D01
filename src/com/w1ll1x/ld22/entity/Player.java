@@ -25,13 +25,14 @@ public class Player extends Mob {
 	public int staminaRecharge;
 	public int staminaRechargeDelay;
 	public int score;
+	public int maxStamina = 10;
 
 	public Player(Game game, InputHandler input) {
 		this.game = game;
 		this.input = input;
 		x = 24;
 		y = 24;
-		stamina = 10;
+		stamina = maxStamina;
 	}
 
 	public void tick() {
@@ -52,7 +53,7 @@ public class Player extends Mob {
 			}
 			while (staminaRecharge > 10) {
 				staminaRecharge -= 10;
-				if (stamina < 10) {
+				if (stamina < maxStamina) {
 					stamina++;
 				}
 			}
@@ -345,5 +346,4 @@ public class Player extends Mob {
 			}
 		}
 	}
-
 }
