@@ -1,5 +1,6 @@
 package com.w1ll1x.ld22.entity;
 
+import com.w1ll1x.ld22.crafting.Crafting;
 import com.w1ll1x.ld22.gfx.Color;
 import com.w1ll1x.ld22.screen.CraftingMenu;
 
@@ -14,7 +15,7 @@ public class Anvil extends Furniture {
 	}
 
 	public boolean use(Player player, int attackDir) {
-		player.game.setMenu(new CraftingMenu(this, player));
+		player.game.setMenu(new CraftingMenu(Crafting.anvilRecipes, player));
 		return true;
 	}
 }

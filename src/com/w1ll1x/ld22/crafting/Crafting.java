@@ -3,12 +3,15 @@ package com.w1ll1x.ld22.crafting;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Crafting {
-	private static final Crafting instance = new Crafting();
-	
-	private List<Recipe> recipies = new ArrayList<Recipe>();
+import com.w1ll1x.ld22.item.resource.Resource;
 
-	private Crafting() {
-		
+public class Crafting {
+	public static final List<Recipe> anvilRecipes = new ArrayList<Recipe>();
+	public static final List<Recipe> chestRecipes = new ArrayList<Recipe>();
+	public static final List<Recipe> ovenRecipes = new ArrayList<Recipe>();
+	public static final List<Recipe> furnaceRecipes = new ArrayList<Recipe>();
+
+	static {
+		ovenRecipes.add(new ResourceRecipe(Resource.bread).addCost(Resource.wheat, 4));
 	}
 }
